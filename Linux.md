@@ -8,7 +8,7 @@ An Open Virtual Appliance (OVA) is a single file package that allows for easy di
 Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one of the most popular platforms on the planet, Android, is powered by the Linux operating system. An operating system is software that manages all of the hardware resources associated with your desktop or laptop. To put it simply, the operating system manages the communication between your software and your hardware. Without the operating system (OS), the software wouldn’t function.
 
  - [GNU/Linux](https://www.gnu.org/home.en.html)
- 
+
  - Bootloader –  The software that manages the boot process of your computer. For most users, this will simply be a splash screen that pops up and eventually goes away to boot into the operating system.
 
  - Kernel – This is the one piece of the whole that is actually called ‘Linux’. The kernel is the core of the system and manages the CPU, memory, and peripheral devices. The kernel is the lowest level of the OS.
@@ -21,9 +21,32 @@ Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one o
 The Bourne - Again Shell. default shell use in linux
 
 # Command
+
+Diffrent shell Dash, Bash, Zsh
+
 ```bash
-  root@look:/home
-  # username @ hostname:/current dir
+        command [option] [args] 
+```
+
+```bash
+    readlink /bin/sh # show default shell
+````
+
+```bash
+echo $SHELL # show run current shell dir
+echo $0 # show run current shell
+```
+
+search in history both key ctrl+r and type word, arrow key out in main 
+
+```bash
+history # show history command in bash
+!1345 # reRun command in history with number
+```
+
+```bash
+    root@look:/home
+    # username @ hostname:/current dir
 ```
 
 ### Directory
@@ -32,4 +55,8 @@ The Bourne - Again Shell. default shell use in linux
 ```
 ```bash
     ls -ltr
+```
+```bash
+touch t.txt /tmp/T.txt tt.txt # create both
+file t.txt # type of file 
 ```
