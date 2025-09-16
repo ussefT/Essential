@@ -37,8 +37,35 @@ echo $SHELL # show run current shell dir
 echo $0 # show run current shell
 ```
 
-search in history both key ctrl+r and type word, arrow key out in main 
+we can use var in text
+```bash 
+echo i am $USER # i am root
+```
 
+this sign scape \ 
+```bash 
+echo i am \$USER # i am $USER
+```
+
+show date
+```bash 
+date 
+var=`date`
+echo $var
+```
+
+show process run in shell
+```bash
+ps # process run in shell
+ps -a # all process 
+```
+
+show path file 
+```bash 
+which touch #/usr/bin/touch
+ ```
+
+search in history both key ctrl+r and type word, arrow key out in main 
 ```bash
 history # show history command in bash
 !1345 # reRun command in history with number
@@ -48,8 +75,29 @@ history # show history command in bash
     root@look:/home
     # username @ hostname:/current dir
 ```
+man show help command, in man with / can search
+```bash
+man ls
+```
+### Bash
+variable is local, with reboot clear
+```bash
+
+echo $USER # show user current
+
+var=foo
+
+echo $var # foo
+
+unset var
+
+touch $var # touch foo 
+
+```
 
 ### Directory
+Files in Linux
+![Files in Linux](url "Files in Linux")
 ```bash
   ll 
 ```
@@ -58,5 +106,7 @@ history # show history command in bash
 ```
 ```bash
 touch t.txt /tmp/T.txt tt.txt # create both
+touch "new file" # space in name file
 file t.txt # type of file 
 ```
+
