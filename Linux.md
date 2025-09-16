@@ -40,10 +40,24 @@ Diffrent shell Dash, Bash, Zsh
 command [option] [args] 
 ```
  - [File](https://github.com/ussefT/Essential/blob/main/Linux.md#file)
+    > work with file
  - [ls](https://github.com/ussefT/Essential/blob/main/Linux.md#ls)
- - [cd](https://github.com/ussefT/Essential/blob/main/Linux.md#cd)
+   >  ls - list directory contents
+ 
  - [du](https://github.com/ussefT/Essential/blob/main/Linux.md#du)
-
+   >  du - estimate file space usage
+ - [specificSign](https://github.com/ussefT/Essential/blob/main/Linux.md#specifinSign)
+   > . ? * [] {} 
+ - [compress & archive](https://github.com/ussefT/Essential/blob/main/Linux.md#compress)
+   > gzip
+   > 
+   > xz
+   > 
+   > bzip2
+   > 
+   > bzcat 
+ - [grep](https://github.com/ussefT/Essential/blob/main/Linux.md#grep)
+---
 ```bash
 readlink /bin/sh # show default shell
 ````
@@ -110,6 +124,11 @@ unset var
 
 touch $var # touch foo 
 
+echo foo > file # foo in file and remove var
+
+echo foo >> file # foo save file 
+
+>file # create file  
 ```
 ---
 ### Directory
@@ -136,13 +155,22 @@ Files in Linux
 ![ls](https://github.com/ussefT/Essential/blob/main/ls.png "ls")
 
 ```bash
-    ls -ltr # -rwxrwxrwx 1 usef usef   3767 Sep 16 02:26 Linux.md
-    ls -ltrh # -rwxrwxrwx 1 usef usef 3.8K Sep 16 02:27 Linux.md
+ls -ltr # -rwxrwxrwx 1 usef usef   3767 Sep 16 02:26 Linux.md
+ls -ltrh # -rwxrwxrwx 1 usef usef 3.8K Sep 16 02:27 Linux.md
 ```
 ---
 ### du 
 ```bash
 du -sh /etc/* # du - estimate file space usage
+```
+---
+### specificSign
+```bash
+rm -rf * # rm all file in folder
+touch file{1..20} # create file1 ... file20
+ls file? # show first name file 
+ls file[3-5] # file3 file4 file5
+ls bigfile?.* # all bigfile.tar or .gz or ....
 ```
 ---
 ### File
@@ -151,4 +179,74 @@ touch t.txt /tmp/T.txt tt.txt # create both
 touch "new file" # space in name file
 file t.txt # type of file 
 ```
+```bash
+cat /ect/* > bigfile #move all etc to big file
+```
+```bash
+cat /etc/* | nl # line with number
+```
+---
+## compress
+only comress in linux => gz bz xz 
+cross-platform (work any os)=> zip 
 
+```bash 
+#compress
+bzip2 bigfile # bigfile.bz2
+```
+```bash 
+#uncompress
+bunzip2 bigfile.bz2
+```
+```bash 
+bzcat bigfile.bz2 # without uncompress show files
+```
+---
+```bash
+gzip bigfile # bigfile.gz
+```
+```bash
+gunzip bigfile.gz
+```
+---
+```bash
+xz bigfile # bigfile.xz
+```
+```bash
+unxz bigfile.xz
+```
+attention do not compress gz to xz or any format data is lost
+
+```bash
+zip file.zip dir
+unzip file.zip
+```
+---
+### archive
+archive & compress => tar
+ - -c archive(tar)
+ - -z compress(gz)
+ - -v show detail in terminal(verboos)
+ - -x extract
+```bash
+tar -czvf bigfile.tar.gz dir  # bigfile.tar
+```
+```bash
+# uncompress
+tar -xzvf bigfile.tar.gz  # bigfile.tar
+```
+
+## cat | grep
+```bash
+cat /etc/* | grep -i ROOT # every word match with root ROOT
+```
+```bash 
+cat /etc/* | head # first 10 line
+```
+```bash 
+cat /etc/* | tail # end 10 line
+```
+```bash
+cat /etc/passwd | less # move a lot line with arrow key
+cat /etc/passwd | more # move with enter key and end go out
+```
