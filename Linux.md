@@ -1,9 +1,25 @@
+
+# View on this page
+- [Install on VirtualBox](https://github.com/ussefT/Essential/blob/main/Linux.md#install-on-virtualbox)
+- [OVA](https://github.com/ussefT/Essential/blob/main/Linux.md#ova)
+- [About](https://github.com/ussefT/Essential/blob/main/Linux.md#about)
+- [Bash](https://github.com/ussefT/Essential/blob/main/Linux.md#bash)
+- [Command](https://github.com/ussefT/Essential/blob/main/Linux.md#command)
+- [Directory](https://github.com/ussefT/Essential/blob/main/Linux.md#directory)
+
+
+
+
+
+---
 # Install on VirtualBox
  - [Download](https://www.virtualbox.org/wiki/Downloads)
-
+---
 ## OVA
+
 An Open Virtual Appliance (OVA) is a single file package that allows for easy distribution and setup of virtual machines (VMs). VirtualBox is an open source virtualization platform that allows you to use OVA files to create and manage VMs.
 
+---
 # About
 Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one of the most popular platforms on the planet, Android, is powered by the Linux operating system. An operating system is software that manages all of the hardware resources associated with your desktop or laptop. To put it simply, the operating system manages the communication between your software and your hardware. Without the operating system (OS), the software wouldn’t function.
 
@@ -16,20 +32,20 @@ Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one o
  - Init system – This is a sub-system that bootstraps the user space and is charged with controlling daemons. One of the most widely used init systems is systemd, which also happens to be one of the most controversial. It is the init system that manages the boot process, once the initial booting is handed over from the bootloader (i.e., GRUB or GRand Unified Bootloader).
 
 - Daemons – These are background services (printing, sound, scheduling, etc.) that either start up during boot or after you log into the desktop.
-
-# Bash 
-The Bourne - Again Shell. default shell use in linux
-
+---
 # Command
-
 Diffrent shell Dash, Bash, Zsh
 
 ```bash
-        command [option] [args] 
+command [option] [args] 
 ```
+ - [File](https://github.com/ussefT/Essential/blob/main/Linux.md#file)
+ - [ls](https://github.com/ussefT/Essential/blob/main/Linux.md#ls)
+ - [cd](https://github.com/ussefT/Essential/blob/main/Linux.md#cd)
+ - [du](https://github.com/ussefT/Essential/blob/main/Linux.md#du)
 
 ```bash
-    readlink /bin/sh # show default shell
+readlink /bin/sh # show default shell
 ````
 
 ```bash
@@ -72,14 +88,15 @@ history # show history command in bash
 ```
 
 ```bash
-    root@look:/home
-    # username @ hostname:/current dir
+root@look:/home
+# username @ hostname:/current dir
 ```
 man show help command, in man with / can search
 ```bash
 man ls
 ```
-### Bash
+---
+## Bash
 variable is local, with reboot clear
 ```bash
 
@@ -94,16 +111,41 @@ unset var
 touch $var # touch foo 
 
 ```
-
+---
 ### Directory
 Files in Linux
-![Files in Linux](url "Files in Linux")
+![Files in Linux](https://github.com/ussefT/Essential/blob/main/linux_files.png "Files in Linux")
+---
+#### ls
 ```bash
-  ll 
+  ll # -rwxrwxrwx 1 usef usef    181 Sep 15 03:42 Readme.md*
 ```
+ - -l - Long listing format
+ - -a - Include hidden files
+ - -h - Human-readable sizes
+ - -t - Sort by modification time
+ - -r - Reverse order while sorting
+ - -R - List subdirectories recursively
+ - -S - Sort by file size
+ - -1 - List one file per line
+ - -d - List directories themselves, not their contents
+ - -F - Append indicator (one of */=@|) to entries
+#### -rwxrwxrwx 1 usef usef
+#### - ---     ---    ---    1         usef   usef
+####  t user  group  other  linkInDisk owner group
+![ls](https://github.com/ussefT/Essential/blob/main/ls.png "ls")
+
 ```bash
-    ls -ltr
+    ls -ltr # -rwxrwxrwx 1 usef usef   3767 Sep 16 02:26 Linux.md
+    ls -ltrh # -rwxrwxrwx 1 usef usef 3.8K Sep 16 02:27 Linux.md
 ```
+---
+### du 
+```bash
+du -sh /etc/* # du - estimate file space usage
+```
+---
+### File
 ```bash
 touch t.txt /tmp/T.txt tt.txt # create both
 touch "new file" # space in name file
