@@ -57,6 +57,10 @@ command [option] [args]
    > 
    > bzcat 
  - [grep](https://github.com/ussefT/Essential/blob/main/Linux.md#grep)
+   > [regex](https://github.com/ussefT/Essential/blob/main/Linux.md#regexInGrep) 
+
+ - [vim](https://github.com/ussefT/Essential/blob/main/Linux.md#vim)
+
 ---
 ```bash
 readlink /bin/sh # show default shell
@@ -240,6 +244,7 @@ tar -xzvf bigfile.tar.gz  # bigfile.tar
 ```bash
 cat /etc/* | grep -i ROOT # every word match with root ROOT
 ```
+
 ```bash 
 cat /etc/* | head # first 10 line
 ```
@@ -250,3 +255,26 @@ cat /etc/* | tail # end 10 line
 cat /etc/passwd | less # move a lot line with arrow key
 cat /etc/passwd | more # move with enter key and end go out
 ```
+### regexInGrep
+```bash
+cat text | grep 'a' # show only with a 
+
+cat text | grep '[ab]' # show word a or b
+
+cat text | grep 'a$' # word end with a
+
+cat text | grep "a..a" # word 4 character contain a
+
+cat text | grep "a..a*" # word 4 character contain a and after another
+```
+
+## Vim
+
+shift+6 OR ^ => end line
+
+shift+4 OR $ => first line
+
+shift+g OR G => end first line
+
+
+
