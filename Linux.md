@@ -6,14 +6,18 @@
 - [Bash](https://github.com/ussefT/Essential/blob/main/Linux.md#bash)
 - [Command](https://github.com/ussefT/Essential/blob/main/Linux.md#command)
 - [Directory](https://github.com/ussefT/Essential/blob/main/Linux.md#directory)
-- [ssh](https://github.com/ussefT/Essential/blob/main/Linux.md#ssh)
+- [SSH](https://github.com/ussefT/Essential/blob/main/Linux.md#ssh)
 
 
 
 
 ---
 # Install on VirtualBox
+
+Download virtualBox
+
  - [Download](https://www.virtualbox.org/wiki/Downloads)
+
 ---
 ## OVA
 
@@ -314,5 +318,5 @@ scp Desktop/sample_example.txt root@136.183.142.28:/home/remote_dir
 Download files:
 
 ```bash
-scp 147.182.143.27:/home/remote_dir/sample_example.txt home/Desktop
+scp -r 147.182.143.27:/home/remote_dir/sample_example.txt home/Desktop
 ```
