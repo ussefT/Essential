@@ -6,7 +6,7 @@
 - [Bash](https://github.com/ussefT/Essential/blob/main/Linux.md#bash)
 - [Command](https://github.com/ussefT/Essential/blob/main/Linux.md#command)
 - [Directory](https://github.com/ussefT/Essential/blob/main/Linux.md#directory)
-
+- [ssh](https://github.com/ussefT/Essential/blob/main/Linux.md#ssh)
 
 
 
@@ -277,4 +277,42 @@ shift+4 OR $ => first line
 shift+g OR G => end first line
 
 
+## ssh
 
+SSH is a secure protocol used as the primary means of connecting to Linux servers remotely. It provides a text-based interface by spawning a remote shell. After connecting, all commands you type in your local terminal are sent to the remote server and executed there.
+
+Install it:
+```bash
+sudo apt-get install openssh-server
+```
+
+Enable it
+
+```bash
+sudo systemctl enable ssh
+```
+
+Start it
+
+```bash
+sudo systemctl start ssh
+```
+
+Connect to linux server, In windows or mac or linux :
+```bash
+ssh userName@Your-server-name-IP
+```
+
+### moveFiles
+
+Upload files:
+
+```bash
+scp Desktop/sample_example.txt root@136.183.142.28:/home/remote_dir
+```
+
+Download files:
+
+```bash
+scp 147.182.143.27:/home/remote_dir/sample_example.txt home/Desktop
+```
