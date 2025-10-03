@@ -47,7 +47,6 @@ command [option] [args]
     > work with file
  - [ls](https://github.com/ussefT/Essential/blob/main/Linux.md#ls)
    >  ls - list directory contents
- 
  - [du](https://github.com/ussefT/Essential/blob/main/Linux.md#du)
    >  du - estimate file space usage
  - [specificSign](https://github.com/ussefT/Essential/blob/main/Linux.md#specifinSign)
@@ -64,6 +63,8 @@ command [option] [args]
    > [regex](https://github.com/ussefT/Essential/blob/main/Linux.md#regexInGrep) 
 
  - [vim](https://github.com/ussefT/Essential/blob/main/Linux.md#vim)
+
+ - [apt](https://github.com/ussefT/Essential/blob/main/Linux.md#apt)
 
 ---
 ```bash
@@ -280,6 +281,17 @@ shift+4 OR $ => first line
 
 shift+g OR G => end first line
 
+## apt
+
+For install packge, app from internet 
+```bash
+sudo apt install python3-virtualenv -y
+```
+
+From Local app.deb
+```bash
+sudo dpgk -i app.deb
+```
 
 ## ssh
 
