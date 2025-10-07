@@ -1,8 +1,10 @@
 ## Docker
+<div dir="rtl">
 داکر یک پلتفرمی که از هسته ی سیستم عامل استفاده میکند که میاد فایل های ایمیج را روی ماشین مجازی اجرا و تبدیل به کانتینر میشود.
 
 ### container
-containerها یک محیط ایزوله و جدای از محیط بیرون هستند که میتوانند یک image را اجرا کنند.
+<div dir="rtl">
+کانتینر یک محیط ایزوله و جدای از محیط بیرون هستند که میتوانند یک ایمیج را اجرا کنند.
 
 - [Install on Linux]()
 - [command]()
@@ -73,7 +75,7 @@ docker run -itd centos:lates
 docker run -itd centos:lates /bin/bash
 ```
 
-میتونیم برنامه ی دیگری به غیر از bash را انجام دهیم .
+میتونیم برنامه ی دیگری به غیر از بش را انجام دهیم .
 تا زمانی که این وظیفه را دارد کانتینر ما در حال اجرا است.
 
 مثال : 
@@ -85,7 +87,7 @@ docker run -it centos:lates ping 8.8.8.8
 
 > ctrl + D -> down container
 
-
+<div dir="rtl">
 نکته: اگر بخواهیم داکر هاست متوقف شود و لی کانتینتر در حال اجرا باقی بماند .
 در این مسیر فایل deamon.json (/etc/docker)
 
@@ -101,6 +103,7 @@ docker -itd --name moon cnetos:lates
 ```
 ---
 ### memory
+<div dir="rtl">
 در  موقع اجرای یک ایمیج میتونیم مقدار memory, swap memory را مشخص کنیم .
 
 ```bash
@@ -111,7 +114,9 @@ docker run -itd --name moon -memory-swap 1G centos:lates
 ```
 ---
 ### cpu
+<div dir="rtl">
 تعریف مقدا ر cpu 
+
 ```bash
 # cpu start 0 to up
 docker run -itd --name sun --cpuset-cpus="1,2"
@@ -131,8 +136,8 @@ docker run -itd --name m  --storage-opt size=1G centos:lates
 
 ---
 ## ps
-کانیتر ها یک طول عمری دارند و مشغول انجام کاری هستند و وقتی تموم میشوند exit میشوند.
- با این دستور تمام کانتینر های up را میشه دید.
+کانیتر ها یک طول عمری دارند و مشغول انجام کاری هستند و وقتی تموم میشوند خارج میشوند.
+ با این دستور تمام کانتینر های بالا یا در حال اجرا را میشه دید.
 ```bash
 docker ps 
 # all container up or exit
@@ -162,7 +167,9 @@ docker ps -f status='exited'
 ```
 ---
 ## stats
+
 دیدن وضعیت کانتینتر ها به صورت زنده
+
 ```bash
 # show all container up
 docker stats
