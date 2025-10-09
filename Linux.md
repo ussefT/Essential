@@ -43,6 +43,7 @@ Diffrent shell Dash, Bash, Zsh
 ```bash
 command [option] [args] 
 ```
+ - [man](https://github.com/ussefT/Essential/blob/main/Linux.md#man)
  - [File](https://github.com/ussefT/Essential/blob/main/Linux.md#file)
     > work with file
  - [ls](https://github.com/ussefT/Essential/blob/main/Linux.md#ls)
@@ -114,10 +115,24 @@ history # show history command in bash
 root@look:/home
 # username @ hostname:/current dir
 ```
-man show help command, in man with / can search
+
+### man
+man (manual) show help command, in man with / can search
 ```bash
 man ls
 ```
+
+In man number show 
+- 1 : application
+> man 1 ascii
+- 2 : syscall (for kernel linux) , library for C
+> man 2 open
+- 3 : standard C library
+> man 4 fopen use all of os 
+- 7 : Other tools
+> man 7 ascii
+> man 7 signal
+ 
 ---
 ## Bash
 variable is local, with reboot clear

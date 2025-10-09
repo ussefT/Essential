@@ -1,9 +1,10 @@
-## Docker
 <div dir="rtl">
+
+## Docker
 داکر یک پلتفرمی که از هسته ی سیستم عامل استفاده میکند که میاد فایل های ایمیج را روی ماشین مجازی اجرا و تبدیل به کانتینر میشود.
 
 ### container
-<div dir="rtl">
+
 کانتینر یک محیط ایزوله و جدای از محیط بیرون هستند که میتوانند یک ایمیج را اجرا کنند.
 
 - [Install on Linux]()
@@ -87,7 +88,6 @@ docker run -it centos:lates ping 8.8.8.8
 
 > ctrl + D -> down container
 
-<div dir="rtl">
 نکته: اگر بخواهیم داکر هاست متوقف شود و لی کانتینتر در حال اجرا باقی بماند .
 در این مسیر فایل deamon.json (/etc/docker)
 
@@ -103,7 +103,6 @@ docker -itd --name moon cnetos:lates
 ```
 ---
 ### memory
-<div dir="rtl">
 در  موقع اجرای یک ایمیج میتونیم مقدار memory, swap memory را مشخص کنیم .
 
 ```bash
@@ -114,7 +113,6 @@ docker run -itd --name moon -memory-swap 1G centos:lates
 ```
 ---
 ### cpu
-<div dir="rtl">
 تعریف مقدا ر cpu 
 
 ```bash
