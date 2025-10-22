@@ -1,6 +1,6 @@
 <div dir="rtl"></div>
 
-## Docker
+## Docker 🐋
 داکر یک پلتفرمی که از هسته ی سیستم عامل استفاده میکند که میاد فایل های ایمیج را روی ماشین مجازی اجرا و تبدیل به کانتینر میشود.
 
 ### container
@@ -11,7 +11,7 @@
 - [command](https://github.com/ussefT/Essential/blob/main/Docker.md#command)
 
 
-## Install on Linux
+## Install on Linux 🐧
 
 - [Install Linux](https://github.com/ussefT/Essential/blob/main/Linux.md)
 
@@ -19,7 +19,7 @@
 - [Docker in linux](https://docs.docker.com/engine/install/ubuntu/)
 
 
-## command
+## command 💻
 
 - [pull](https://github.com/ussefT/Essential/blob/main/Docker.md#pull)
 - [run](https://github.com/ussefT/Essential/blob/main/Docker.md#pull)
@@ -51,6 +51,7 @@
 - [volume](https://github.com/ussefT/Essential/blob/main/Docker.md#volume)
 - [networking](https://github.com/ussefT/Essential/blob/main/Docker.md#networking)
 - [port-mapping](https://github.com/ussefT/Essential/blob/main/Docker.md#port-mapping)
+- [storage driver]()
 
 version:
 ```bash
@@ -67,7 +68,7 @@ docker  info
 ## pull
 
 ---
-## run
+## run 🏃‍♂️
 اگر ایمیجی نباشد به صورت خودکار خودش آن ایمیج را دانلود میکند.
 به ازای هر کانتینتر ما یک پراسس جدید در لینوکس داریم.
 
@@ -113,7 +114,7 @@ echo {"live_restor":true} > daemon.json
 docker -itd --name moon cnetos:lates
 ```
 ---
-### memory
+### memory 📝
 در  موقع اجرای یک ایمیج میتونیم مقدار memory, swap memory را مشخص کنیم .
 
 ```bash
@@ -215,7 +216,7 @@ docer tag [source-tag] [target-tag]
 
 
 ---
-## search
+## search 🔍
 اگر بخواهیم ایمیجی را پیداکنیم. به طوری پیش فرض متصل به داکر هاب میشود.
 
 ```bash 
@@ -230,6 +231,12 @@ docker search [image]
 ```bash
 docker inspect [id] or [image]
 ```
+
+اطلاعات container مخصوص
+```bash
+docker inspect --format="{{.Mounts}}" moon
+```
+
 
 ---
 ## rm
@@ -291,7 +298,7 @@ docker cp ./foo/foo.txt centos2:/home/
 ```
 
 ---
-## stop
+## stop ⛔
 میتوان container را down کرد 
 
 ```bash
@@ -326,7 +333,7 @@ dcoker restart centos2
 
 
 ---
-## logs
+## logs 
 میتوان از container لاگ گرفت و لاگ ها در مسیر 
 > root@xubuntu:/var/lib/docker/containers/2e81a80304d5a1a2d0fde78dc3bfc004b8e5a63b17170f6fd31143dc06b4f5ae#
 
@@ -335,6 +342,58 @@ docker logs -ft centos2
 #   -f, --follow         Follow log output
 #   -t, --timestamps     Show timestamps
 ```
+
+متونیم لاگ بگیریم از کار کرد یک container 
+```bash
+docker run -it --log-opt centos2
+```
+
+در  حالت پیش فرض لاگ ها را به ما به صورت لایو نشون میده
+
+
+دراین حالت لاگ ها را در بافر میریزد
+```bash
+docker run it --log-opt mode=none_blocking --log-opt max-buffer-size=4m centos:latest ping google.com
+```
+در این مسیر container 
+> /var/docker/container/(id)_log
+
+میتونیم 
+```text
+ {
+    "log-driver":"syslog"
+ }
+```
+در مسیر 
+> /etc/docker/daemon.json
+>> if not exist create 
+or 
+```text
+
+{
+    "log-driver":"json-file",
+    "log-opts":
+    {
+        "max-size":"10m",
+        "max-file":"3",
+        "labels":"production_status",
+        "env":"os,customer",
+    }
+}
+```
+عوض  کردن فرمت json به local و فایلی در مسیر 
+> /var/lib/docker/containers/id_container
+```bash
+docker run -itd --name sun --log-driver local --log-opt max_size=10m --log-opt max-file=3 centos:latest echo Hi
+```
+و میتونیم به این صورت فایل خروجی log را به این صورت حروجی بگیریم
+
+```bash
+docker run --itd --name moon --log-opt tag="{{.ImageName}}{{.Name}}{{.ID}}" centos:latest
+```
+فایل در مسیر 
+> /var/lib/docker/container/id_container/..
+
 ---
 ## event
 خروجی هایی که مانند event است را متوان با 
@@ -405,14 +464,386 @@ docker import centos2.tar
 > ممکنه دنگل ایمیج باشد که با دستور tag عوض میکنیم
 >> مکنه با دستور run اجرا نشود
 
+---
 ## volume
-```bash
+در داکر ما دونوع حافظه داریم 
 
+- persistent storage (حافظه ی مهم)
+- none-persistent storage (حافظه بی اهمیت)
+
+به صورت پیش فرض اگر حافظه ای یا مکانی را برای ذخیره ی داده در container تعیین نکنیم بع داز اینکه container افتاد داده های ما از بین میرن.
+
+- [bind mount]()
+> save on disk (every space)
+- [tmpfs]()
+> save on ram (only use in linux)
+- [volume]()
+> save on disk but protect by Docker 
+
+### volume
+- در والیوم ها میتوان همزمان چند container از یک مسیر و در فایل اسفاده کنند
+- اطلاعات در صورتی پاک میشود که دستور مستقیم بدیم پاک کنه
+- بک اپ گرفتن و ذخیره کردن و منتقل کردن فایل های با والیوم
+
+تفاوت volumes , bind mount
+- دستورات cli در داکر با volume ها سریع تر و بهتر مدیریت میشود
+- امنیت در volume ها بیشتر است 
+- در volume اگر آدرس نباشد ایجاد میکند ولی bind mounts خطا میدهد.
+
+
+
+وقتی ما مسیری را از روی دیسک بروی container مضخص میکنیم. داده به صورت خودکار بروی کانتینتر کپی مشود و قابل استفاده و در مسیر
+> /var/lib/docker/volumes/(name)/....data
+
+در اینجا فایل از هر دوطرف هاست داکر و container قابل رویت است.
+
+ایجاد
+```bash
+docker volume create myvol
+```
+```bash
+docker volume create --name myvol --label myval=123
 ```
 
+همه ی volume
+```bash
+docker volume ls
+```
+اطلاعات از volume 
+```bash
+docker volume inspect myvol
+```
+
+برای یک container یک volume تعریف میکنیم که اگر پوشه ای نباشد خودش ایجاد میکنه
+```bash
+docker run --itd --name moon -v myvol:/app centos:latest
+```
+> یکی از مزیت های volume ها اینه container حذف شود و یکی دیگر بالا بیاد فایل های هم داخلش است
+
+
+امکان تعریف کردن از مسیر داخل هاست به داخل container هم هست.
+```bash
+docker run -it -v /tmp/dir:/mydata centos:latest
+# -v if volume dose not exist , will create it automatically
+```
+> اگر مسیر تعریفی برای container نباشد خودش ایجاد میکند.
+
+
+پیداکردن containerاز روی volume 
+```bash
+docker ps -a --filter volume=myvol
+```
+
+اگر خواستیم فایل ما بروی سیستم روی هاست دیگر ذخیره بشه
+```bash
+docker volume create --drive local --opt type=nfs --opt o=add=192.168.56.106,rw --opt device=:/path myvol
+```
+> local : This means the volume was create with the default local driver, and is only available to containers on this Docker host 
+
+#### rm volume
+اگر volume در حال استاده باشد نمیتونیم پاک کنیم و این دستور پاک میشود
+
+```bash
+docker volume rm myvol
+```
+
+با این دستور او volume های بدون استفاده پاک میشوند
+```bash
+docker volume prune
+```
+
+
+میتوان دسترسی read , write تعیین کرد بروی volume
+```bash
+dcoker run -it -v myvol:/data:ro centos:latest
+```
+
+### tmpfs
+اگه لخوایم از این ویژگی لینوکس استفاده کنیم 
+```bash
+docker run -itd --name mycent --tmpfs /tmp centos:lastes
+```
+or
+```bash
+docker run -itd --name mycent --mount type=tmpfs,destination=/tmp centos:latest
+```
+
+
+### bind mount
+
+```bash
+docker volume create myvol
+```
+
+```bash
+docker volume create myvol
+```
+---
+## storage drives
+هر داکر containerمحیط ذخیره سازی خودشو داره. و این محیط توسط storage driver مدیریت میشود.
+بعضی از storage drivers در داکر و موجود در linux:
+- aufs(the original and oldest)
+- overlay2(probably the best choise for the future)
+- devicemapper
+- btfrfs
+- zfs
+
+میتونیم در داکر لینوکس نوع این را تغییر بدیم و در مسیر 
+> /etc/docker/daemon.json 
+>> if not exist create that.
+
+```text
+
+{
+    "storage-driver":"overlay2"
+}
+
+```
+restart docker 
+```bash
+sudo systemctl restart docker
+```
+
+
+
+
+---
 ## networking
-```bash
 
+Dcoker networking comprises three major components:
+- The Container Network Model
+- Libnetwork
+- Drivers
+
+در مدل Container Network Model (CNM) سه مدل داریم:
+
+- 1-sandbox (is an isolated network stack, It includes; Ethernet interface, ports , routing tables, adn DNS config)
+- 2-endpoint (are virtal network interface. Like normal network interface, they re resposible for making connections)
+- 3-network (are a software implementation of an 802.1d bridge (morecommonly known as a switch))
+
+هر container sandboxخودشو داره.
+
+وقتی داکر نصب میشود 
+
+- 1-bridge (روی لایه 2 مجازی لوکال و روی سینگل هاست به صورت پیش فرض فعاله )
+- 2-host (هر شخصی سازی در ماشین که شامل DNS ,... میشود با داکر یکی میشود و هیچ فضایی بین آنها نیست)
+- 3-none (غیرفعال کردن شبکه داکر)
+
+گرفتن network
+```bash
+docker network ls
+```
+### docker network driver
+![network driver]()
+
+
+گرفتن اطلاعات از network bridge
+```bash
+docker network inspect bridge
 ```
 
+با این کد میتوان ethernet داکر هاست را دید و در این بازه containerهایی که بالا میآیند در محدوده هستند
+
+![cnm_docker]()
+![cnm_docker2]()
+
+### create network
+
+create network bridge/overlay
+```bash
+docker network create -d bridge/overlay mynet
+```
+> -d for bridge/overlay
+
+
+for run 
+```bash
+docker run -it --name mycent --ntwork mynet centos:latest
+```
+
+If connect to container
+```bash
+docker network connect/disconnect mynet mycentos
+```
+
+for exmaples:
+```bash
+docker run -itd --name myn --network localhost -p 5000:80 nginx:latest
+```
+> -p 5000 enable own port 
+>> 80 for container is up
+
+نشان دادن پورت های container
+```bash
+docker port myn
+```
+
+---
 ## port-mapping
+
+
+
+
+---
+## Dockerfile
+اسم این میتوان کوچک یا بزرگتر نوشت ولی به این صورت تعیین شده است.
+
+میتوان ایمیج خودمان را درست کنیم.
+
+در همون مسیر که فایلمان هست که تبدیل به docker image بشه 
+
+- FROM
+یعنی که از ایمیجی استفاده کنیم
+```text
+FROM centos:latest # use image centos
+```
+از هیچ ایمیج استفاده نکند 
+
+```bash
+FROM scratch
+```
+
+بخواهیم توضیحات یا ورژن یا هر چیز دیگه به عنوان متن بزاریم 
+
+```text
+LABEL description="this is a sample"
+LABEL version="1.0.0"
+LABEL maintainer="l"
+```
+
+بخواهیم فقط فایل را کپی کنیم که در مسیر داکر فایل اصلی هست و نه فایل دیگر یا آدرس وب
+```text
+COPY test.txt j.txt /app/
+```
+حتما در آخر مسر باید / بزاریم
+
+
+اگر بخواهیم فایلی با فرمت tar, tar.gz, rar و ... بدیم با این دستور که خودش به صورت خودکار میاد untar میکند
+```text
+ADD t.tar /app2/
+```
+
+
+یک دستوری را اجرا کندو یا پکیجی را نصب کند
+```text
+RUN echo hi
+```
+
+
+متغییر گلوبالی تعریف کنیم که در container ما قایل دسترس است
+```text
+ENV myvar=123
+```
+in container
+```text
+echo $myvar # out: 123
+```
+
+با یوزری و یا با دسترسی ویژه ای این دستورات را انجام دهیم از اون خطی که تعریف میکنیم از اون دسترسی انجام میشود
+```text
+USER root
+```
+
+با این دستور مسیر از این خط به بعد اگر مسیر به آن معرفی نکنیم از این اجرا میکند
+```text
+ENV workpath=/home/sample
+WORKDIR $workpath
+```
+وقتی بیلد میشه و container را بالا میاریم در این مسیر میاد بالا
+
+مثال 
+
+```text
+FROM centos:centos7.9.2009
+ENV myvar=123
+ENV workpath=/home/sample
+WORKDIR $workpath
+COPY t1.txt .
+```
+
+استفاده از volume که میتونیم تعریف کنیم و مسیر آن را ایجاد میکند و تا زمانی که اجرا بشود و تا تعریف نکنیم براش مشخص نمیشود
+- بیشتر برای داکیومنت دارد
+این مسیر container ایجاد میشود
+````text
+VOLUME /myvol1 or ["/myvol1","myvol2"]
+````
+موقع اجرا
+```bash
+docker run -it --name mycent -v /home/test1:/myvol1 -v /home/test2:/myvol2 mycentos:v2
+```
+
+با این container ما بر روی این پورت در ال اجرا هست ولی هنوز از بیرون قابل استفاده نیست باید در هنگام اجرا پورت مپینگ انجام بدیم
+
+```text
+EXPOSE 80/tcp
+```
+زمانی که container ما میاد میتونه یک ماموریتی داشته باشه 
+به سه شکل وجود داره 
+
+```text
+CMD ["/bin/bash"]
+# CMD ["executablel", "param1", "param2"]
+# CMD ["param1","param2"]
+# CMD command1 command2
+```
+برای اینکه موقع اجرا کار دیگری انجام دهد 
+```bash
+docker run -it --name gg centos:latest /bin/bash
+```
+این هم مانند cmd است. Enterypoint 
+```text
+ENTRYPOINT ["executable","param1","param2"]
+
+```
+اگر هر دو entrypoint و cmd داشتیم. ماموریت داکر فایل مورد استفاده میشود. اگر دو مورد بود : 
+- 1- هر دو باید به صورت exec باشد 
+- 2- چیزی که جلوی cmd میاریم پاس داده میشود به entrypoint
+
+exmaple
+
+```text
+FROM centos:latest
+LABEL name="name"
+ENTRYPOINT ["ping"]
+CMD ["8.8.8.8"]
+```
+
+example2
+```text
+
+FROM centos:latest
+RUN yum install -y httpd
+EXPOSE 80/tcp
+VOLUME /var/www/html
+ENTRYPOINT /usr/sbin/httpd && /bin/bash 
+```
+/usr/sbin/httpd && /bin/bash 
+> به معنی اینه که چون یه کاری انجام میده و بعد میوفته. بعدش به کارش ادامه بده با /bin/bash ادامه میدیم
+
+### HealthCheck
+برای بررسی درست کار کردن container باید چک کنیم دستوری را که تعریف میکنیم اجرا نکرده ولی container بالا است 
+
+```text
+FROM centos:centos7.9.2009
+
+LABEL description="this is a sample"
+LABEL version="1.0.0"
+LABEL maintainer="l"
+
+RUN echo salam
+
+HEALTHCHECK --interval=2m --timeout=3s CMD curl 127.0.0.1 || exit 1
+CMD /usr/sbin/httpd
+```
+
+بعد با این دستور میتوان دید که Health چه وضعیتی است.
+```bash
+docker inspect mycent
+```
+
+
+
+
+
+
+
