@@ -820,6 +820,62 @@ ENTRYPOINT /usr/sbin/httpd && /bin/bash
 /usr/sbin/httpd && /bin/bash 
 > به معنی اینه که چون یه کاری انجام میده و بعد میوفته. بعدش به کارش ادامه بده با /bin/bash ادامه میدیم
 
+بهینه سازی داکر فایل خیلی مهمه و در زمان build خیلی مهمه
+- مثلا این مثال بهینه نیست 
+
+```bash
+
+FROM debian
+COPY ./app
+RUN apt update
+RUN apt -y install openjdk-8-jdk ssh emac
+CMD ["java","-jar","/app/target/app.jar"]
+```
+بهتر است دستور COPY بعد از RUN باشد که از کش استفاده کند و اگر مسیر ما عوض شد دیگر نمیتونه از کش استفاده کنه تا آخر خط پس بهتر اول دانلود بکنه و دفعات بعد از کش استفاده کنه و بعد کپی را بسازه.
+
+correct
+```bash
+FROM debain
+RUN apt update
+RUN apt -y install openjdk-8-jdk ssh emac
+COPY ./app
+CMD ["java","-jar","/app/target/app.jar"]
+```
+
+و بهتر است اون فایلهایی که میخوایم را کپی کنیم
+
+```bash
+
+
+```
+و تعداد لایه های ما برای اینکه کمتر بشه سعی میکنیم دستور RUN کمتری بزاریم 
+
+- برنامه هایی که لزومی بر استفاده اش نیست نصب نمیکنیم 
+- پکیج منیجز میره دانلود میکنه و اونا ور کش میکنه و نگه داشتن این فایل ها در داکر اضافی است و میریم اونا را remove میکنیم 
+
+```bash
+FROM debain
+RUN apt update && apt -y install --no-install recomend && openjdk-8-jdk && rm -rf /var/lib/apt/lists/*
+COPY target/app.jar /app
+CMD ["jab","-jar","/app/app.jar"]
+```
+میتونیم کلا از ایمیج openjdk اسفاده میکنیم.
+با توجه به برنامه باید ورژن برنامه با image باید مشخص بشه 
+چون وقتی از latest استفاده میکنیم ممکنه در آخرین نسخه برنامه ما برای اون بهینه نیست.
+
+```bash
+FROM openjdk
+COPY target/app.jar /app
+CMD ["java","=jar","/app/app.ajr"]
+```
+- ایمیج رسمی بهتر است به خاطر اینکه 
+> 1- security
+> 2- document
+> 3- best performance
+
+تفاوت image :
+
+
 ### HealthCheck
 برای بررسی درست کار کردن container باید چک کنیم دستوری را که تعریف میکنیم اجرا نکرده ولی container بالا است 
 
