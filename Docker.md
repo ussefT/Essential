@@ -176,8 +176,10 @@ docker ps -n=[int]
 # -f status= created, running, paused, restarting, removing, exited, dead
 docker ps -f status='exited'
 ```
+### environment
+تعریف کردن متغییر در container
 ```bash
-
+docker run -it --name moon -e NAME="Hi" centos:latest
 ```
 ---
 ## stats
@@ -772,6 +774,15 @@ VOLUME /myvol1 or ["/myvol1","myvol2"]
 docker run -it --name mycent -v /home/test1:/myvol1 -v /home/test2:/myvol2 mycentos:v2
 ```
 
+برای عوض کردن پیش فرض شل 
+```text
+FROM centos:latest
+LABEL "mainter=owner"
+SHELL ["/bin/bash","-c"] or SHELL ["/bin/sh","-c"]
+RUN echo hello
+CMD ["/bin/bash"]
+```
+
 با این container ما بر روی این پورت در ال اجرا هست ولی هنوز از بیرون قابل استفاده نیست باید در هنگام اجرا پورت مپینگ انجام بدیم
 
 ```text
@@ -790,7 +801,7 @@ CMD ["/bin/bash"]
 ```bash
 docker run -it --name gg centos:latest /bin/bash
 ```
-این هم مانند cmd است. Enterypoint 
+این هم مانند cmd است.Enterypoint 
 ```text
 ENTRYPOINT ["executable","param1","param2"]
 
@@ -874,7 +885,9 @@ CMD ["java","=jar","/app/app.ajr"]
 > 3- best performance
 
 تفاوت image :
-
+- centos:latest
+- centos:slim-alpine
+- centos:
 
 ### HealthCheck
 برای بررسی درست کار کردن container باید چک کنیم دستوری را که تعریف میکنیم اجرا نکرده ولی container بالا است 
@@ -896,6 +909,109 @@ CMD /usr/sbin/httpd
 ```bash
 docker inspect mycent
 ```
+
+exmaple
+```text
+FROM python:3-alpine
+LABEL author="owner"
+COPY hello.py
+ENV NAME="foo"
+CMD python3 /app/hello.py
+```
+```python
+from os import getenv
+if getenv('NAME') is None:
+    name='world'
+else:
+    name=getenv('NAME')
+print(f'Hello {name }')
+```
+## history
+در container میتوان history دید انچه انجام شده و ما در داکر فایل انجام دادیم
+```bash
+docker history myimage:v3
+```
+دلیل missing در history ایدی یمنحصر به فرد نداره چون ما نساخته ایم.
+
+## start container automatically
+وقتی container بیوفته به طور پیش فرض اجرا نمیکند باید دستی اجرا کنیم و دلیل افتادن کانتینتر مهمم نیست.
+- اگر خودمون به صورت دستی stop کنیم دیگه به این صورت پیش فرض کار نمیکنه 
+
+به این صورت مینوان تغییر داد:
+![start container]()
+
+- no
+- on-failer
+- always
+- unless-stopped 
+
+#### always
+we can manually stop container
+> if stop manually and restart docker, containet is up
+```bash
+# if docker is restart or system is reboot container is up automatically
+docker run -it --name test1 --restart always centos:latest
+```
+after restart docker 
+```bash
+systemctl restart docker
+```
+
+#### unless-stop
+اگر داکر ریست بشه دوباره اجرا نمیشه
+
+```bash
+docker run -it --name moon --restart unless-stopped centos
+```
+
+## container exit code
+
+- exit code 0 
+> ماموریت container که تموم میشه و کاری برای انجام دادن نداریم خروج پیدا میکنه.
+- exit code 1
+> وقتی که در لایه اپلیکیشن مشکلی پیش میاد و از برنامه خارج میشه و container میوفته
+- exit code 137
+> سیگنال kill یعنی 
+- exit code 139
+> مشکل segmention fault برای اجرا در رم و چون در خواست غیر مجاز در رم مواجه هستیم و یا اون برنامه مشکل segmentation fault هست  container ما با این کد خروج پیدا میکنه
+- exit code 143
+> سیگنال terminate داکر stop میکنیم یعنی سیگنال به سمت process اصلی رفته و اون process ترمینیت شده
+- exit code 126
+> مشکل permission داریم یعنی فایلی  قابل اجرا نیست
+- exit code 127
+> اگر shell script را داریم اجرا میکنیم که خطا میده و خطای کاراکتر غیر قابل مجاز میده در container اجرا میشه خطا بده با این کد خروج پیدا میکنه
+- exit code 255
+> اشتباه در ENTRYPOINT/CMD داریم و دستوری که مینویسیم خطا داده و باید چک شود.
+
+## registery
+اگر image که میسازیم. باید جایی باشه که بتونیم استفاده کنیم.
+
+- online (best docker hub)
+- local (on own system)
+
+Run local registry:
+```bash 
+# most download 
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+``` 
+برنامه های نکسوس و ارتیفکتوری فراتر از یک repository docker هستند
+
+for tag image:
+```bash
+docker tag myimage:v1 localhost:5000/myimage:v1
+```
+> when image upload to repository connect to localhost, change tag images
+and push
+```bash
+docker push localhost:5000/myimage:v1
+```
+
+for browser in web
+> --link connect two container (maybe deprecate)
+```bash
+docker run -d -p 8080:8080 --restart always --name registery-web --link registery -e REGISTERY_URL=http://registery:5000/v2 -e REGISTERY_NAME=localhost:5000 hyper/docker-registery-web
+```
+
 
 
 
