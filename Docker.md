@@ -1012,10 +1012,112 @@ for browser in web
 docker run -d -p 8080:8080 --restart always --name registery-web --link registery -e REGISTERY_URL=http://registery:5000/v2 -e REGISTERY_NAME=localhost:5000 hyper/docker-registery-web
 ```
 
+## Docker compose
+- [Docker Compose](https://docs.docker.com/compose/)
+- [command]()
+مثلا ما 4 یا 5 تا سرویس داریم میتونیم یک فایل YAML تعریف کنیم که 5 تا سرویس با هم بیان بالا به جای اینکه مدام dcoker run بزنیم.
+> Docker Compose is a tool for defining and running multi-container applications. It is the key to unlocking a streamlined and efficient development and deployment experience.
+1- داملود میکنیم docker compose 
+
+```bash
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+فایل به صورت YAML, JSON میتئنه باشه ولی اسم فایل باید به این صورت  docker-compose.yml
+در غیر اینصورت با -f باید اسم را بهش بدیم.
+
+```bash
+mkdir counter-app-compose
+cd countaer-app-compose
+
+vim docker-compose.yml
+```
+به ازای هر سرویس یک ایمیج باید بایلا بیاد.
 
 
+we can run detach mode
+```bash
+docker-compose up -d
+```
+example:
+[Exmaple](https://docs.docker.com/compose/gettingstarted)
+- در اینجا دو تا سرویس 
+> web
+> redis (if not exist, download it)
 
+```text
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+  redis:
+    image: "redis:alpine"
+```
+```Dockerfile
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-heades
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["flask","run"]
+```
+```python
+import time
+import redis
+from flask import Flask
+app=Flask(__name__)
 
+# default port redis
+# why 'redis'? beacuse in yml define redis, can any name
+cache=redis.Redis(host='redis',port=6379) 
 
+def get_hit_count():
+    retries=5
+    while True:
+        try:
+            return cache.incr('this')
+        except redis.exceptions.ConnectionError as exc:
+            if retries==0:
+                raise exc
+            retries-=1
+            time.sleep(0.5)
+            
+@app.route('/')
+def hello():
+    count=get_hit_count()
+    return "hello {} time \n".format(count)
+```
 
+### command
+list of container
+```bash
+docker-compose ps
+```
+stop all container in compose
+```bahs
+docker-compose stop
+```
+all container is start
+and restart
+```basg
+docker-compose start -d
+docker-compose restart
+```
+> -d run in detach mode
+down all container and remove
+```bash
+docker-compose down -v 
+```
+> -v if use volume, remove it 
 
+network defualt docker-compose is bridge, docker compose best for developer area
+
+check syntax config yml file docker compose
+```bash
+docker-compose config
+```
