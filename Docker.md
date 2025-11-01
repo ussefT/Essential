@@ -947,7 +947,7 @@ docker history myimage:v3
 
 #### always
 we can manually stop container
-> if stop manually and restart docker, containet is up
+> if stop manually and restart docker, container is up
 ```bash
 # if docker is restart or system is reboot container is up automatically
 docker run -it --name test1 --restart always centos:latest
@@ -1055,6 +1055,7 @@ services:
   redis:
     image: "redis:alpine"
 ```
+
 ```Dockerfile
 FROM python:3.7-alpine
 WORKDIR /code
@@ -1099,12 +1100,12 @@ list of container
 docker-compose ps
 ```
 stop all container in compose
-```bahs
+```bash
 docker-compose stop
 ```
 all container is start
 and restart
-```basg
+```bash
 docker-compose start -d
 docker-compose restart
 ```
@@ -1115,9 +1116,169 @@ docker-compose down -v
 ```
 > -v if use volume, remove it 
 
-network defualt docker-compose is bridge, docker compose best for developer area
+network default docker-compose is bridge, docker compose best for developer area
+> that can container see each other
 
 check syntax config yml file docker compose
 ```bash
 docker-compose config
+```
+
+pause all container
+```bash
+docker-compose pause
+```
+
+unpause all container
+```bash
+docker-compose unpause
+```
+
+we can see log container
+```bash
+docker-compose logs
+```
+> if error to syntax
+![failer]()
+> ok
+![ok]()
+
+follow logs 
+```bash
+docker-compose log -f
+```
+
+
+container is work in class and swarm work with overlay network
+
+```yml
+version:"3.5"
+services:
+      web:
+                build: .  # build container auto
+                image:myimage:v1 # name of image (by default download but with build create images)
+                command: python app.py
+                ports:
+                        - target:5000
+                        published:5000
+                networks:
+                        - conuter-net
+                volumes:
+                        - counter-vol:/code # create volume
+      redis:
+                image:"redis:alphine"
+                networks:
+                      counter-net:
+                       
+networks:
+    counter-net:
+volumes:
+    counter-vol: # use volume
+```
+or my image in dir
+```yml
+      web:
+          context:./dir
+          dockerfile:Dockerfile
+```
+
+
+
+### version 
+هر داکری یه ورژنی داره و بر اساس خود داکر که چه ورژنی را داره پشتیبانی میکنه.
+
+![version]()
+
+### service
+به ازای هر سرویسی که داریم . از لحاظ syntaxy یک تو رفتگی میزاریم.
+
+
+
+### network
+به صورت پیش فرض container ها با bridge اجرا میشود و اگر قرار باشد با بیرون ارتباط داشته باشد port برایش تعریف میکنیم.
+![docker-compose-network]()
+
+- use default brideg
+- create network with docker network create
+- create own network in yml
+
+
+میتونیم network خودمون را بسازیم.
+```yml
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    # connect to network
+    networks:
+      - counter-net
+  redis:
+    image: "redis:alpine"
+    # connect to network
+    networks:
+      - counter-net
+# create own customize network
+network:
+  counter-net:
+```
+
+or connect to own network before use `docker network create test-net`
+```yml
+network:
+  default:
+          external:
+                  name: test-net
+```
+
+### port
+پورت traget برای container است.
+
+### depends_on
+ممکنه container های ما وابستگی دارن 
+
+```yml
+web:
+  # order by this is up and down
+  build:
+    -db
+    -redis
+```
+
+### enviroment
+
+```yml
+enviroment:
+  MYSQL_USER=foo
+  MYSQL_DATABASE=mydb
+  
+```
+
+اگر expose کنیم میتونیم از بیرون ماشین دیده نمیشه تا زمانی که publish شود. 
+
+### health check
+میتونیم برای هر container health checkبنویسیم
+```yml
+healthcheck:
+  test:[] 
+  
+```
+
+### restart
+میتونیم قوانین نوع restart را مشخص کنیم.
+
+```yml
+restart="no"
+restart=always
+restart=on-failer
+restart=unless-stopped
+```
+
+### tmpfs
+mount a temporary file (in ram docker).Can be a single value or a list.
+
+```yml
+tmpfs:
+  -/run
+  -/tmp
 ```
