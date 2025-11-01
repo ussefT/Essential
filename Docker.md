@@ -3,7 +3,7 @@
 ## Docker 🐋
 داکر یک پلتفرمی که از هسته ی سیستم عامل استفاده میکند که میاد فایل های ایمیج را روی ماشین مجازی اجرا و تبدیل به کانتینر میشود.
 
-### container
+### container 📦
 
 کانتینر یک محیط ایزوله و جدای از محیط بیرون هستند که میتوانند یک ایمیج را اجرا کنند.
 
@@ -134,7 +134,7 @@ docker run -itd --name sun --cpuset-cpus=1-6
 docker run -itd --name sun --cpuset-cpus=5
 ```
 
-### storage
+### storage 💿
 برای تخصیص حافظه 
 ```bash
 docker run -itd --name m  --storage-opt size=1G centos:lates
@@ -199,7 +199,7 @@ docker stats --no-stream
 
 
 ---
-## tag
+## tag 🏷️
  هر ایمیج داکر دارای دو متغییر  < repository>:< tag> هست . 
 در محیط پروداکشن ما از latest  استفاده میکنیم.
 
@@ -241,7 +241,7 @@ docker inspect --format="{{.Mounts}}" moon
 
 
 ---
-## rm
+## rm 🗑️
 با این دستور کانتینر پاک مشیود
 ```bash 
 docker rm -f [name]
@@ -315,7 +315,7 @@ docker wait centos2
 ```
 
 ---
-## start
+## start ✈️
 کانتینتر را دوباره شروع میکند 
  > -a only out error and output not input
  > -i everything do
@@ -326,11 +326,11 @@ docker start -a/-i centos2
 
 
 ---
-## restart
+## restart 🔄️
 
 میتوان container را restart کنیم 
 ```bash
-dcoker restart centos2
+docker restart centos2
 ```
 
 
@@ -636,7 +636,7 @@ Dcoker networking comprises three major components:
 docker network ls
 ```
 ### docker network driver
-![network driver]()
+![network driver](https://github.com/ussefT/Essential/blob/main/res/network_type.png)
 
 
 گرفتن اطلاعات از network bridge
@@ -646,8 +646,8 @@ docker network inspect bridge
 
 با این کد میتوان ethernet داکر هاست را دید و در این بازه containerهایی که بالا میآیند در محدوده هستند
 
-![cnm_docker]()
-![cnm_docker2]()
+![cnm_docker](https://github.com/ussefT/Essential/blob/main/res/cnm_docker.png)
+![cnm_docker2](https://github.com/ussefT/Essential/blob/main/res/cnm_docker2.png)
 
 ### create network
 
@@ -926,7 +926,7 @@ else:
     name=getenv('NAME')
 print(f'Hello {name }')
 ```
-## history
+## history 
 در container میتوان history دید انچه انجام شده و ما در داکر فایل انجام دادیم
 ```bash
 docker history myimage:v3
@@ -938,7 +938,7 @@ docker history myimage:v3
 - اگر خودمون به صورت دستی stop کنیم دیگه به این صورت پیش فرض کار نمیکنه 
 
 به این صورت مینوان تغییر داد:
-![start container]()
+![start container](https://github.com/ussefT/Essential/blob/main/res/start-docker.jpg)
 
 - no
 - on-failer
@@ -1139,9 +1139,9 @@ we can see log container
 docker-compose logs
 ```
 > if error to syntax
-![failer]()
+![failer](https://github.com/ussefT/Essential/blob/main/res/failer.jpg)
 > ok
-![ok]()
+![ok](https://github.com/ussefT/Essential/blob/main/res/ok.jpg)
 
 follow logs 
 ```bash
@@ -1187,7 +1187,7 @@ or my image in dir
 ### version 
 هر داکری یه ورژنی داره و بر اساس خود داکر که چه ورژنی را داره پشتیبانی میکنه.
 
-![version]()
+![version](https://github.com/ussefT/Essential/blob/main/res/version.jpg)
 
 ### service
 به ازای هر سرویسی که داریم . از لحاظ syntaxy یک تو رفتگی میزاریم.
@@ -1196,7 +1196,7 @@ or my image in dir
 
 ### network
 به صورت پیش فرض container ها با bridge اجرا میشود و اگر قرار باشد با بیرون ارتباط داشته باشد port برایش تعریف میکنیم.
-![docker-compose-network]()
+![docker-compose-network](https://github.com/ussefT/Essential/blob/main/res/docker-compose-network.jpg)
 
 - use default brideg
 - create network with docker network create
