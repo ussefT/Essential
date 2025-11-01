@@ -1,5 +1,5 @@
 
-# View on this page
+# View on this page 👀
 - [Install on VirtualBox](https://github.com/ussefT/Essential/blob/main/Linux.md#install-on-virtualbox)
 - [OVA](https://github.com/ussefT/Essential/blob/main/Linux.md#ova)
 - [About](https://github.com/ussefT/Essential/blob/main/Linux.md#about)
@@ -12,11 +12,13 @@
 
 
 ---
-# Install on VirtualBox
+# Install on VirtualBox 📦
 
 Download virtualBox
 
- - [Download](https://www.virtualbox.org/wiki/Downloads)
+ - [Download](https://www.virtualbox.org/wiki/Downloads) 
+   
+ - [VirtualBox Image](https://www.linuxvmimages.com/images/) 🖼️
 
 ---
 ## OVA
@@ -24,7 +26,7 @@ Download virtualBox
 An Open Virtual Appliance (OVA) is a single file package that allows for easy distribution and setup of virtual machines (VMs). VirtualBox is an open source virtualization platform that allows you to use OVA files to create and manage VMs.
 
 ---
-# About
+# About ℹ️
 Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one of the most popular platforms on the planet, Android, is powered by the Linux operating system. An operating system is software that manages all of the hardware resources associated with your desktop or laptop. To put it simply, the operating system manages the communication between your software and your hardware. Without the operating system (OS), the software wouldn’t function.
 
  - [GNU/Linux](https://www.gnu.org/home.en.html)
@@ -37,8 +39,14 @@ Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one o
 
 - Daemons – These are background services (printing, sound, scheduling, etc.) that either start up during boot or after you log into the desktop.
 ---
-# Command
-Diffrent shell Dash, Bash, Zsh
+# Command ⌨️
+
+- [Lpic1](https://www.lpi.org/our-certifications/lpic-1-overview/)
+> [learn Lpic1](https://linux1st.com/)
+
+-[Lpic2](https://www.lpi.org/our-certifications/lpic-2-overview/)
+
+Diffrent shell Dash, Bash, Zsh ,tmux
 
 ```bash
 command [option] [args] 
