@@ -1,5 +1,5 @@
 
-# View on this page 👀
+# 👀View on this page 
 - [Install on VirtualBox](https://github.com/ussefT/Essential/blob/main/Linux.md#install-on-virtualbox)
 - [OVA](https://github.com/ussefT/Essential/blob/main/Linux.md#ova)
 - [About](https://github.com/ussefT/Essential/blob/main/Linux.md#about)
@@ -7,12 +7,12 @@
 - [Command](https://github.com/ussefT/Essential/blob/main/Linux.md#command)
 - [Directory](https://github.com/ussefT/Essential/blob/main/Linux.md#directory)
 - [SSH](https://github.com/ussefT/Essential/blob/main/Linux.md#ssh)
-
+- [tmux](https://tmuxcheatsheet.com/)
 
 
 
 ---
-# Install on VirtualBox 📦
+# 📦Install on VirtualBox 
 
 Download virtualBox
 
@@ -26,7 +26,7 @@ Download virtualBox
 An Open Virtual Appliance (OVA) is a single file package that allows for easy distribution and setup of virtual machines (VMs). VirtualBox is an open source virtualization platform that allows you to use OVA files to create and manage VMs.
 
 ---
-# About ℹ️
+# ℹ️About 
 Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one of the most popular platforms on the planet, Android, is powered by the Linux operating system. An operating system is software that manages all of the hardware resources associated with your desktop or laptop. To put it simply, the operating system manages the communication between your software and your hardware. Without the operating system (OS), the software wouldn’t function.
 
  - [GNU/Linux](https://www.gnu.org/home.en.html)
@@ -39,7 +39,7 @@ Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one o
 
 - Daemons – These are background services (printing, sound, scheduling, etc.) that either start up during boot or after you log into the desktop.
 ---
-# Command ⌨️
+# ⌨️Command 
 
 - [Lpic1](https://www.lpi.org/our-certifications/lpic-1-overview/)
 > [learn Lpic1](https://linux1st.com/)
@@ -205,7 +205,7 @@ ls file[3-5] # file3 file4 file5
 ls bigfile?.* # all bigfile.tar or .gz or ....
 ```
 ---
-### File
+### 📂File
 ```bash
 touch t.txt /tmp/T.txt tt.txt # create both
 touch "new file" # space in name file
@@ -297,6 +297,7 @@ cat text | grep "a..a*" # word 4 character contain a and after another
 ```
 
 ## Vim
+[![Vim The editor](https://github.com/vim/vim/raw/master/runtime/vimlogo.gif)](https://www.vim.org)
 
 shift+6 OR ^ => end line
 
