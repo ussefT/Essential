@@ -1,6 +1,6 @@
 <div dir="rtl">
 
-## Kubernetes (K8s) 🕸️
+## 🕸️ Kubernetes (K8s) 
 
 - [Linux](https://github.com/ussefT/Essential/blob/main/Linux.md)
 - [Docker](https://github.com/ussefT/Essential/blob/main/Linux.md)
@@ -51,7 +51,7 @@ Kubernetes provides you with:
 به‌صورت ساده، Kubernetes (که بهش “کوبر” یا “کوبرنتیس” یا حتی “K8s” هم می‌گن)،
 یه سیستم هوشمند برای مدیریت خودکار برنامه‌ها در کانتینرها (containers) هست.
 
-## Install ⚙️
+## ⚙️ Install 
 
 
 ### Container Orchestration Engines
@@ -60,7 +60,7 @@ Kubernetes provides you with:
 - Docker Swarm 
 > برای سرویس های کوچک تر و محیط های آزمایشگاهی اجرا میکنیم 
 
-![docker-swarm]()
+![docker-swarm](https://github.com/ussefT/Essential/blob/kuber/res/docker-swarm.png)
 
 در docker swarm ما دو تا node داریم.
 - Leader
@@ -70,7 +70,7 @@ Kubernetes provides you with:
 
 - no tag (هیچ نوعی ندارند)
 
-![]()
+
 
 #### 🚀 چرا بهش نیاز داریم؟
 فرض کن یه برنامه‌ی وب داری که شامل چند بخشه:
@@ -124,7 +124,7 @@ Kubernetes مثل یه مدیر کارخانه‌ی هوشمنده که همیش
 > Master Node = بخش “مدیریتی” کوبرنتیس
 Worker Node = بخش “اجرایی” که پادها (Pods) رویش اجرا می‌شن
 
-![node-master-slave]()
+![node-master-slave](https://github.com/ussefT/Essential/blob/kuber/res/kuber-master-slave.png)
 
 ####  اجزای اصلی مستر نود
 
@@ -164,7 +164,7 @@ Worker Node = بخش “اجرایی” که پادها (Pods) رویش اجرا
 
 در محیط‌های ابری (Cloud) مثل AWS، GCP یا Azure استفاده می‌شه برای ارتباط با APIهای آن پلتفرم.
 
-![cluster architecture]()
+![cluster architecture](https://github.com/ussefT/Essential/blob/kuber/res/kuber-cluster-architecture.jpg)
 
 
 ## 🧩 تعریف ساده‌ی Kubernetes Cluster

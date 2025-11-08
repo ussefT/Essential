@@ -1,9 +1,9 @@
 <div dir="rtl"></div>
 
-## Docker 🐋
+## 🐋Docker 
 داکر یک پلتفرمی که از هسته ی سیستم عامل استفاده میکند که میاد فایل های ایمیج را روی ماشین مجازی اجرا و تبدیل به کانتینر میشود.
 
-### container 📦
+### 📦container 
 
 کانتینر یک محیط ایزوله و جدای از محیط بیرون هستند که میتوانند یک ایمیج را اجرا کنند.
 
@@ -11,7 +11,7 @@
 - [command](https://github.com/ussefT/Essential/blob/main/Docker.md#command)
 
 
-## Install on Linux 🐧
+## 🐧 Install on Linux 
 
 - [Install Linux](https://github.com/ussefT/Essential/blob/main/Linux.md)
 
@@ -19,7 +19,7 @@
 - [Docker in linux](https://docs.docker.com/engine/install/ubuntu/)
 
 
-## command 💻
+## 💻command 
 
 - [pull](https://github.com/ussefT/Essential/blob/main/Docker.md#pull)
 - [run](https://github.com/ussefT/Essential/blob/main/Docker.md#pull)
@@ -68,7 +68,7 @@ docker  info
 ## pull
 
 ---
-## run 🏃‍♂️
+## 🏃‍♂️run 
 اگر ایمیجی نباشد به صورت خودکار خودش آن ایمیج را دانلود میکند.
 به ازای هر کانتینتر ما یک پراسس جدید در لینوکس داریم.
 
@@ -114,7 +114,7 @@ echo {"live_restor":true} > daemon.json
 docker -itd --name moon cnetos:lates
 ```
 ---
-### memory 📝
+### 📝memory 
 در  موقع اجرای یک ایمیج میتونیم مقدار memory, swap memory را مشخص کنیم .
 
 ```bash
@@ -134,13 +134,12 @@ docker run -itd --name sun --cpuset-cpus=1-6
 docker run -itd --name sun --cpuset-cpus=5
 ```
 
-### storage 💿
+### 💿storage 
 برای تخصیص حافظه 
 ```bash
 docker run -itd --name m  --storage-opt size=1G centos:lates
 ```
-ممکنه ارور بده.
-0000
+
 
 ### rm
 بعد از اینکه کانتینر ما افتاد یا down شد پاک میشود.
@@ -199,7 +198,7 @@ docker stats --no-stream
 
 
 ---
-## tag 🏷️
+## 🏷️ tag 
  هر ایمیج داکر دارای دو متغییر  < repository>:< tag> هست . 
 در محیط پروداکشن ما از latest  استفاده میکنیم.
 
@@ -218,7 +217,7 @@ docer tag [source-tag] [target-tag]
 
 
 ---
-## search 🔍
+## 🔍search 
 اگر بخواهیم ایمیجی را پیداکنیم. به طوری پیش فرض متصل به داکر هاب میشود.
 
 ```bash 
@@ -241,7 +240,7 @@ docker inspect --format="{{.Mounts}}" moon
 
 
 ---
-## rm 🗑️
+## 🗑️ rm 
 با این دستور کانتینر پاک مشیود
 ```bash 
 docker rm -f [name]
@@ -300,7 +299,7 @@ docker cp ./foo/foo.txt centos2:/home/
 ```
 
 ---
-## stop ⛔
+## ⛔stop 
 میتوان container را down کرد 
 
 ```bash
@@ -315,7 +314,7 @@ docker wait centos2
 ```
 
 ---
-## start ✈️
+## ✈️start 
 کانتینتر را دوباره شروع میکند 
  > -a only out error and output not input
  > -i everything do
@@ -326,7 +325,7 @@ docker start -a/-i centos2
 
 
 ---
-## restart 🔄️
+## 🔄️restart 
 
 میتوان container را restart کنیم 
 ```bash
