@@ -1,18 +1,12 @@
 
-# 👀View on this page 
+# View on this page 👀
 - [Install on VirtualBox](https://github.com/ussefT/Essential/blob/main/Linux.md#install-on-virtualbox)
 - [OVA](https://github.com/ussefT/Essential/blob/main/Linux.md#ova)
 - [About](https://github.com/ussefT/Essential/blob/main/Linux.md#about)
 - [Bash](https://github.com/ussefT/Essential/blob/main/Linux.md#bash)
 - [Command](https://github.com/ussefT/Essential/blob/main/Linux.md#command)
-- [Directory](https://github.com/ussefT/Essential/blob/main/Linux.md#directory)
-- [SSH](https://github.com/ussefT/Essential/blob/main/Linux.md#ssh)
-- [tmux](https://tmuxcheatsheet.com/)
 
-
-
----
-# 📦Install on VirtualBox 
+# Install on VirtualBox 📦
 
 Download virtualBox
 
@@ -26,7 +20,7 @@ Download virtualBox
 An Open Virtual Appliance (OVA) is a single file package that allows for easy distribution and setup of virtual machines (VMs). VirtualBox is an open source virtualization platform that allows you to use OVA files to create and manage VMs.
 
 ---
-# ℹ️About 
+# About ℹ️
 Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one of the most popular platforms on the planet, Android, is powered by the Linux operating system. An operating system is software that manages all of the hardware resources associated with your desktop or laptop. To put it simply, the operating system manages the communication between your software and your hardware. Without the operating system (OS), the software wouldn’t function.
 
  - [GNU/Linux](https://www.gnu.org/home.en.html)
@@ -39,320 +33,401 @@ Just like Windows, iOS, and Mac OS, Linux is an operating system. In fact, one o
 
 - Daemons – These are background services (printing, sound, scheduling, etc.) that either start up during boot or after you log into the desktop.
 ---
-# ⌨️Command 
+# Command ⌨️
 
 - [Lpic1](https://www.lpi.org/our-certifications/lpic-1-overview/)
-> [learn Lpic1](https://linux1st.com/)
+> [ More learn Lpic1](https://linux1st.com/)
 
--[Lpic2](https://www.lpi.org/our-certifications/lpic-2-overview/)
+- [Lpic2](https://www.lpi.org/our-certifications/lpic-2-overview/)
 
-Diffrent shell Dash, Bash, Zsh ,tmux
+Diffrent shell Dash, Bash, [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) ,[tmux](https://tmuxcheatsheet.com/)
 
-```bash
-command [option] [args] 
-```
- - [man](https://github.com/ussefT/Essential/blob/main/Linux.md#man)
- - [File](https://github.com/ussefT/Essential/blob/main/Linux.md#file)
-    > work with file
- - [ls](https://github.com/ussefT/Essential/blob/main/Linux.md#ls)
-   >  ls - list directory contents
- - [du](https://github.com/ussefT/Essential/blob/main/Linux.md#du)
-   >  du - estimate file space usage
- - [specificSign](https://github.com/ussefT/Essential/blob/main/Linux.md#specifinSign)
-   > . ? * [] {} 
- - [compress & archive](https://github.com/ussefT/Essential/blob/main/Linux.md#compress)
-   > gzip
-   > 
-   > xz
-   > 
-   > bzip2
-   > 
-   > bzcat 
- - [grep](https://github.com/ussefT/Essential/blob/main/Linux.md#grep)
-   > [regex](https://github.com/ussefT/Essential/blob/main/Linux.md#regexInGrep) 
-
- - [vim](https://github.com/ussefT/Essential/blob/main/Linux.md#vim)
-
- - [apt](https://github.com/ussefT/Essential/blob/main/Linux.md#apt)
-
----
-```bash
-readlink /bin/sh # show default shell
-````
+Configure [vim]() for python
 
 ```bash
-echo $SHELL # show run current shell dir
-echo $0 # show run current shell
+man ls              # With / go to mode search
+
+who                 # show who is logged on
+
+whoami              # current user 
+
+which tar           # /usr/bin/tar
+
+whereis ping        # ping: /usr/bin/ping /usr/sbin/ping /usr/share/man/man8/ping.8.gz
+
+pwd                 # /home/raven/Desktop
+
+
+whatis              # fdisk (8)            - manipulate disk partition table
+
+
+type fdisk          # fdisk is hashed (/usr/sbin/fdisk)
+
+
+history             # 513  parted -l
+                    # 514  fdisk
+                    # 515  fidik -l
+                    # 516  fdisk -l
+                    # 517  fdisk /dev/sda
+                    # 518  history
+
+history -c          # clear history
+
+!516                # run command  number 516
+
+!!                  # run last command
+
+ls                  # afs  bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run    sbin  srv  sys  tmp  usr  var
+
+ls -ltrh
+
+ls  #  -l - Long listing format
+    #  -a - Include hidden files
+    #  -h - Human-readable sizes
+    #  -t - Sort by modification time
+    #  -r - Reverse order while sorting
+    #  -R - List subdirectories recursively
+    #  -S - Sort by file size
+    #  -1 - List one file per line
+    #  -d - List directories themselves, not their contents
+
+    # dr-xr-x---.   3 root root 4096 Nov 11 06:17 root
+
+    # ‘-’ regular file
+    # ‘b’ block special file
+    # ‘c’ character special file
+    # ‘C’ high performance (“contiguous data”) file
+    # ‘d’ directory
+    # ‘D’ door (Solaris 2.5 and up)
+    # ‘l’ symbolic link
+    # ‘M’ off-line (“migrated”) file (Cray DMF)
+    # ‘n’ network special file (HP-UX)
+    # ‘p’ FIFO (named pipe)
+    # ‘P’ port (Solaris 10 and up)
+    # ‘s’ socket
+    # ‘?’ some other file type
+
+    # owner-group-other link owner group file-size create-date file-name 
+    
+
+cd              # move to base path user -> /home/user
+                #                   root -> /root
+
+cd /tmp         # move to main dir (absolute path)
+
+cd project/py   # move to current place dir (relative path)
+
+uname 
+
+    #  Linux rocky9.linuxvmimages.local 5.14.0-427.13.1.el9_4.x86_64 #1 SMP PREEMPT_DYNAMIC Wed May 1 19:11:28 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+
+uname -a
+
+uname -p
+
+    # -a, --all
+
+    #    -s, --kernel-name
+
+    #    -n, --nodename
+
+    #    -r, --kernel-release
+
+    #    -v, --kernel-version
+
+    #    -m, --machine
+
+    #    -p, --processor
+
+    #    -i, --hardware-platform
+
+    #    -o, --operating-system
+
+echo  $0                # -bash
+echo  $PATH             # /root/.local/bin:/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+echo $SHELL             # /bin/bash
+p=1
+echo  $p                 # 1
+
+cat f.txt                # all line 
+
+cat /etc/passwd > f.txt  # write to f
+
+cat /etc/shadow >> f.txt # append to f 
+
+cat -n /etc/shadow       # with line number
+
+less f.txt               # show with pages, move arrow key
+cat -n /etc/shadow | less 
+
+nl f.txt                  # show line with content
+
+sort f.txt                # sort content
+
+
+tail f.txt                # show end of line 
+
+tail p 5 f.txt            # last 5 line 
+
+
+ls | grep f               # find all f
+
+ls | egrep -i "[0-9]"     # use regex in grep 
+
+sed  's/A/B/'             # A replace to B
+
+wc f.txt                  # 598  5390 42683 f.txt
+                          # lines words byte 
+
+md5sum file 
+sha256sum file
+sha512sum file 
+
+*                         # means any string
+?                         # means any single character
+[ABC]                     # matches A, B, or C               
+[a-z]                     # matches a, b, c, ..., z (both lower-case and upper-case)                                 
+[0-9a-z]                  # matches all digits and numbers                                                      
+[!x]                      # means NOT X.                                         
+
+rm *                      # remove all file in dir
+
+mkdir f                   # create dir
+rmdir                     # remove  dir
+
+cp source destination     # copy
+
+mv source destination     # can rename
+
+
+touch newfile 
+
+file /etc/fstab          # /etc/fstab: ASCII text
+
+dd if=n.txt of=o.txt     # just like copy file and devices
+
+find . -iname "[a-j]*"   # find files in .
+
+
+ln
+
+export CAN="yes"
+
+
+
+tar -cf test.tar t1.txt t2.txt # archive
+
+tar -czfv test.tar.gz t1.txt    # archive,compress
+
+tar -xf
+
+gzip file
+gunzip file.gz
+
+bzip2 file
+bzip2 file.bz2
+
+
+passwd user # change passwrod user
+
+runlevel  # Print previous and current SysV runlevel
+          # 0 poweroff
+          # 1 rescue / one user 
+          # 2,3,4 multi user
+          # 5 graphical
+          # 6 reboot
+
+init 6    # reboot
+
+shutdown now 
+
+shutdown +5 --no-wall    # power off 5 minute - no wall 
+
+shutdown +1 bye bye      # wall all user
+
+mesg n/y                 # disable/enable
+
+systemctl list-units
+
+systemctl start ssh
+systemctl enable ssh
+
+ssh user@ip
+
+scp file user@ip:/home/user
+
+apt install vim
+
+yum install vim
+#               update	Updates the repositories and update the names of packages, or all if nothing is named
+#               install	Install a package
+#               reinstall	Reinstall a package
+#               list	Show a list of packages
+#               info	Show information about a package
+#               remove	Removes an installed package
+#               search	Searches repositories for packages
+#               provides	Check which packages provide a specific file
+#               upgrade	Upgrades packages and removes the obsolete ones
+#               localinstall	Install from a local rpm file
+#               localupdate	Updates from a local rpm file
+#               check-update	Checks repositories for updates to the installed packages
+#               deplist	Shows dependencies of a package
+#               groupinstall	Install a group, say "KDE Plasma Workspaces"
+#               history	Show history of the usage
+
+
+
+curl 
 ```
 
-we can use var in text
-```bash 
-echo i am $USER # i am root
-```
 
-this sign scape \ 
-```bash 
-echo i am \$USER # i am $USER
-```
 
-show date
-```bash 
-date 
-var=`date`
-echo $var
-```
-
-show process run in shell
+# grub
 ```bash
-ps # process run in shell
-ps -a # all process 
+
 ```
 
-show path file 
-```bash 
-which touch #/usr/bin/touch
- ```
-
-search in history both key ctrl+r and type word, arrow key out in main 
-```bash
-history # show history command in bash
-!1345 # reRun command in history with number
-```
-
-```bash
-root@look:/home
-# username @ hostname:/current dir
-```
-
-### man
-man (manual) show help command, in man with / can search
-```bash
-man ls
-```
-
-In man number show 
-- 1 : application
-> man 1 ascii
-- 2 : syscall (for kernel linux) , library for C
-> man 2 open
-- 3 : standard C library
-> man 4 fopen use all of os 
-- 7 : Other tools
-> man 7 ascii
-> man 7 signal
- 
----
-## Bash
-variable is local, with reboot clear
+# systemctl
 ```bash
 
-echo $USER # show user current
+```
+# chmod
+```bash
 
-var=foo
+```
+# chown
+```bash
 
-echo $var # foo
+```
+# firewall
+```bash
 
-unset var
+```
 
-touch $var # touch foo 
+# compress
+```bash
 
-echo foo > file # foo in file and remove var
+```
 
-echo foo >> file # foo save file 
+# vim
+```bash
+vim t1.txt 
+#  :command 
+#  :w       ## write
+#  :q       ## exit
+#  :qw      ## write, exit
+#  :q!      ## do nothing and exit
+#  :w!      ## override write 
+```
 
->file # create file  
-```
----
-### Directory
-Files in Linux
-![Files in Linux](https://github.com/ussefT/Essential/blob/main/linux_files.png "Files in Linux")
----
-#### ls
+# users & groups
+## users
 ```bash
-  ll # -rwxrwxrwx 1 usef usef    181 Sep 15 03:42 Readme.md*
-```
- - -l - Long listing format
- - -a - Include hidden files
- - -h - Human-readable sizes
- - -t - Sort by modification time
- - -r - Reverse order while sorting
- - -R - List subdirectories recursively
- - -S - Sort by file size
- - -1 - List one file per line
- - -d - List directories themselves, not their contents
- - -F - Append indicator (one of */=@|) to entries
-#### -rwxrwxrwx 1 usef usef
-#### - ---     ---    ---    1         usef   usef
-####  t user  group  other  linkInDisk owner group
-![ls](https://github.com/ussefT/Essential/blob/main/ls.png "ls")
 
-```bash
-ls -ltr # -rwxrwxrwx 1 usef usef   3767 Sep 16 02:26 Linux.md
-ls -ltrh # -rwxrwxrwx 1 usef usef 3.8K Sep 16 02:27 Linux.md
 ```
----
-### du 
+## groups
 ```bash
-du -sh /etc/* # du - estimate file space usage
-```
----
-### specificSign
-```bash
-rm -rf * # rm all file in folder
-touch file{1..20} # create file1 ... file20
-ls file? # show first name file 
-ls file[3-5] # file3 file4 file5
-ls bigfile?.* # all bigfile.tar or .gz or ....
-```
----
-### 📂File
-```bash
-touch t.txt /tmp/T.txt tt.txt # create both
-touch "new file" # space in name file
-file t.txt # type of file 
-```
-```bash
-cat /ect/* > bigfile #move all etc to big file
-```
-```bash
-cat /etc/* | nl # line with number
-```
----
-## compress
-only comress in linux => gz bz xz 
-cross-platform (work any os)=> zip 
 
-```bash 
-#compress
-bzip2 bigfile # bigfile.bz2
 ```
-```bash 
-#uncompress
-bunzip2 bigfile.bz2
-```
-```bash 
-bzcat bigfile.bz2 # without uncompress show files
-```
----
-```bash
-gzip bigfile # bigfile.gz
-```
-```bash
-gunzip bigfile.gz
-```
----
-```bash
-xz bigfile # bigfile.xz
-```
-```bash
-unxz bigfile.xz
-```
-attention do not compress gz to xz or any format data is lost
+# process
 
 ```bash
-zip file.zip dir
-unzip file.zip
+top             # display Linux processes
+
+lscpu           # info about CPU
+
+htop            # graphical top
+
+ps              # show processID is running
+
+kill 796        # kill process ID
 ```
----
-### archive
-archive & compress => tar
- - -c archive(tar)
- - -z compress(gz)
- - -v show detail in terminal(verboos)
- - -x extract
+
+## pmap
 ```bash
-tar -czvf bigfile.tar.gz dir  # bigfile.tar
+
 ```
+## w
 ```bash
-# uncompress
-tar -xzvf bigfile.tar.gz  # bigfile.tar
-```
 
-## cat | grep
+```
+## pstree
 ```bash
-cat /etc/* | grep -i ROOT # every word match with root ROOT
+
 ```
 
-```bash 
-cat /etc/* | head # first 10 line
-```
-```bash 
-cat /etc/* | tail # end 10 line
-```
+# memory
+## free
 ```bash
-cat /etc/passwd | less # move a lot line with arrow key
-cat /etc/passwd | more # move with enter key and end go out
-```
-### regexInGrep
-```bash
-cat text | grep 'a' # show only with a 
+free -V         # version 
+free -h         # human readable
+                #  -t, --total 
 
-cat text | grep '[ab]' # show word a or b
-
-cat text | grep 'a$' # word end with a
-
-cat text | grep "a..a" # word 4 character contain a
-
-cat text | grep "a..a*" # word 4 character contain a and after another
 ```
 
-## Vim
-[![Vim The editor](https://github.com/vim/vim/raw/master/runtime/vimlogo.gif)](https://www.vim.org)
-
-shift+6 OR ^ => end line
-
-shift+4 OR $ => first line
-
-shift+g OR G => end first line
-
-## apt
-
-For install packge, app from internet 
-```bash
-sudo apt install python3-virtualenv -y
-```
-
-From Local app.deb
-```bash
-sudo dpgk -i app.deb
-```
-
-## ssh
-
-SSH is a secure protocol used as the primary means of connecting to Linux servers remotely. It provides a text-based interface by spawning a remote shell. After connecting, all commands you type in your local terminal are sent to the remote server and executed there.
-
-Install it:
-```bash
-sudo apt-get install openssh-server
-```
-
-Enable it
+# I/O
+## iotop
 
 ```bash
-sudo systemctl enable ssh
+
 ```
 
-Start it
-
+## iostat
 ```bash
-sudo systemctl start ssh
+
 ```
 
-Connect to linux server, In windows or mac or linux :
+## lsof
 ```bash
-ssh userName@Your-server-name-IP
+
 ```
 
-### moveFiles
-
-Upload files:
-
+# disk
 ```bash
-scp Desktop/sample_example.txt root@136.183.142.28:/home/remote_dir
-```
+df                        # show disk    
 
-Download files:
+df -Th                    # type with human readable
 
-```bash
-scp -r 147.182.143.27:/home/remote_dir/sample_example.txt home/Desktop
+
+du -h                     # show files use 
+
+
+lsblk -f                  # sda
+                          # ├─sda1             xfs                        bf995dd6-3d3e-4ba3-a18f-62eddcd4d06d    735.6M    23% /boot
+                          # └─sda2             LVM2_member LVM2 001       VbL08y-HQub-hJX4-ZSR2-TO5f-egyA-QTwVzd
+                          #   ├─rl_rocky9-root xfs                        63e1a051-977d-40a1-a1ad-321916bce66f     68.1G     3% /
+                          #   ├─rl_rocky9-swap swap        1              def2c0f4-42d1-4550-9800-0d7279b12422                  [SWAP]
+                          #   └─rl_rocky9-home xfs                        31806d02-38c4-4bf7-b38f-89e626fd6fed    435.6G     1% /home
+
+
+
+parted -l                 # Model: ATA VBOX HARDDISK (scsi)
+                          # Disk /dev/sda: 550GB
+                          # Sector size (logical/physical): 512B/512B
+                          # Partition Table: msdos
+                          # Disk Flags:
+
+                          # Number  Start   End     Size    Type     File system  Flags
+                          # 1      1049kB  1075MB  1074MB  primary  xfs          boot
+                          # 2      1075MB  550GB   549GB   primary               lvm   
+            
+parted                    # command mod help with p or ? 
+
+
+fdisk -l              
+                          # Disk /dev/mapper/rl_rocky9-home: 438.95 GiB, 471318134784 bytes, 920543232 sectors
+                          # Units: sectors of 1 * 512 = 512 bytes
+                          # Sector size (logical/physical): 512 bytes / 512 bytes
+                          # I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+fdisk /dev/sda            # command mode
+
+mount                     # show all mounted file 
+mount /dev/sda /mnt       # mount /dev/sda to /mnt
+
+umount /dev/sda           # unmount /dev/sda 
+umount /mnt               # unmount /dev/sda 
+
+
 ```
