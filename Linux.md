@@ -208,6 +208,13 @@ dd if=n.txt of=o.txt     # just like copy file and devices
 
 find . -iname "[a-j]*"   # find files in .
 
+find /home/user -name "*.txt"          # Find all .txt files in /home/user
+
+find /home/user -type d               # Find all directories in /home/user
+
+find /home/user -mtime -7             # Find files modified in the last 7 days
+
+find /home/user -exec ls -l {} \;      # Execute 'ls -l' on each found file
 
 ln
 
@@ -256,9 +263,11 @@ ssh user@ip
 
 scp file user@ip:/home/user
 
+# debian/ubuntu
 apt install vim
 
-yum install vim
+# redhat
+yum/dnf install vim
 #               update	Updates the repositories and update the names of packages, or all if nothing is named
 #               install	Install a package
 #               reinstall	Reinstall a package
@@ -278,6 +287,80 @@ yum install vim
 
 
 curl 
+
+
+chmod +x file.sh 
+chmod  u+x file.sh
+chmod 755 file.sh
+chmod -x file.sh
+
+
+df                        # show disk    
+
+df -Th                    # type with human readable
+
+
+du -h /home/user          # show files use 
+
+
+lsblk -f                  # sda
+                          # ├─sda1             xfs                        bf995dd6-3d3e-4ba3-a18f-62eddcd4d06d    735.6M    23% /boot
+                          # └─sda2             LVM2_member LVM2 001       VbL08y-HQub-hJX4-ZSR2-TO5f-egyA-QTwVzd
+                          #   ├─rl_rocky9-root xfs                        63e1a051-977d-40a1-a1ad-321916bce66f     68.1G     3% /
+                          #   ├─rl_rocky9-swap swap        1              def2c0f4-42d1-4550-9800-0d7279b12422                  [SWAP]
+                          #   └─rl_rocky9-home xfs                        31806d02-38c4-4bf7-b38f-89e626fd6fed    435.6G     1% /home
+
+
+
+parted -l                 # Model: ATA VBOX HARDDISK (scsi)
+                          # Disk /dev/sda: 550GB
+                          # Sector size (logical/physical): 512B/512B
+                          # Partition Table: msdos
+                          # Disk Flags:
+
+                          # Number  Start   End     Size    Type     File system  Flags
+                          # 1      1049kB  1075MB  1074MB  primary  xfs          boot
+                          # 2      1075MB  550GB   549GB   primary               lvm   
+            
+parted                    # command mod help with p or ? 
+
+
+fdisk -l              
+                          # Disk /dev/mapper/rl_rocky9-home: 438.95 GiB, 471318134784 bytes, 920543232 sectors
+                          # Units: sectors of 1 * 512 = 512 bytes
+                          # Sector size (logical/physical): 512 bytes / 512 bytes
+                          # I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+fdisk /dev/sda            # command mode
+
+mount                     # show all mounted file 
+mount /dev/sda /mnt       # mount /dev/sda to /mnt
+
+umount /dev/sda           # unmount /dev/sda 
+umount /mnt               # unmount /dev/sda 
+
+
+
+top             # display Linux processes
+
+lscpu           # info about CPU
+
+htop            # graphical top
+
+ps                  # Show processes for the current user
+ps -e               # Show all running processes
+ps -ef              # Show full format of running processes
+ps -u user          # Show processes running by user
+
+
+kill 796        # kill process ID
+
+free -V         # version 
+free -h         # human readable
+                #  -t, --total 
+
+
 ```
 
 
@@ -332,15 +415,7 @@ vim t1.txt
 # process
 
 ```bash
-top             # display Linux processes
 
-lscpu           # info about CPU
-
-htop            # graphical top
-
-ps              # show processID is running
-
-kill 796        # kill process ID
 ```
 
 ## pmap
@@ -359,9 +434,6 @@ kill 796        # kill process ID
 # memory
 ## free
 ```bash
-free -V         # version 
-free -h         # human readable
-                #  -t, --total 
 
 ```
 
@@ -382,52 +454,3 @@ free -h         # human readable
 
 ```
 
-# disk
-```bash
-df                        # show disk    
-
-df -Th                    # type with human readable
-
-
-du -h                     # show files use 
-
-
-lsblk -f                  # sda
-                          # ├─sda1             xfs                        bf995dd6-3d3e-4ba3-a18f-62eddcd4d06d    735.6M    23% /boot
-                          # └─sda2             LVM2_member LVM2 001       VbL08y-HQub-hJX4-ZSR2-TO5f-egyA-QTwVzd
-                          #   ├─rl_rocky9-root xfs                        63e1a051-977d-40a1-a1ad-321916bce66f     68.1G     3% /
-                          #   ├─rl_rocky9-swap swap        1              def2c0f4-42d1-4550-9800-0d7279b12422                  [SWAP]
-                          #   └─rl_rocky9-home xfs                        31806d02-38c4-4bf7-b38f-89e626fd6fed    435.6G     1% /home
-
-
-
-parted -l                 # Model: ATA VBOX HARDDISK (scsi)
-                          # Disk /dev/sda: 550GB
-                          # Sector size (logical/physical): 512B/512B
-                          # Partition Table: msdos
-                          # Disk Flags:
-
-                          # Number  Start   End     Size    Type     File system  Flags
-                          # 1      1049kB  1075MB  1074MB  primary  xfs          boot
-                          # 2      1075MB  550GB   549GB   primary               lvm   
-            
-parted                    # command mod help with p or ? 
-
-
-fdisk -l              
-                          # Disk /dev/mapper/rl_rocky9-home: 438.95 GiB, 471318134784 bytes, 920543232 sectors
-                          # Units: sectors of 1 * 512 = 512 bytes
-                          # Sector size (logical/physical): 512 bytes / 512 bytes
-                          # I/O size (minimum/optimal): 512 bytes / 512 bytes
-
-
-fdisk /dev/sda            # command mode
-
-mount                     # show all mounted file 
-mount /dev/sda /mnt       # mount /dev/sda to /mnt
-
-umount /dev/sda           # unmount /dev/sda 
-umount /mnt               # unmount /dev/sda 
-
-
-```
