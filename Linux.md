@@ -220,6 +220,13 @@ ln
 
 export CAN="yes"
 
+vim t1.txt 
+#  :command 
+#  :w       ## write
+#  :q       ## exit
+#  :qw      ## write, exit
+#  :q!      ## do nothing and exit
+#  :w!      ## override write 
 
 
 tar -cf test.tar t1.txt t2.txt # archive
@@ -289,11 +296,38 @@ yum/dnf install vim
 curl 
 
 
-chmod +x file.sh 
-chmod  u+x file.sh
-chmod 755 file.sh
-chmod -x file.sh
+chmod +x file.sh          # exec file
+chmod  u+x file.sh        # user can exec
 
+chmod 754 file.sh         # user group other 
+
+                          # user  =>   read(4) write(2) execute(1) 4+2+1= 7
+                          # group =>   read(4) execute(1) 4+1= 5
+                          # other =>   read(4) = 4 
+                          
+chmod -x file.sh
+chmod u=rw,o=r file.txt   # user= read, write / other=r
+
+chown username:groupname file.txt # change file owner and group 
+chown 1001:1001 file.txt 
+
+useradd username          # add user
+
+usermod -aG groupname username  # add user to group 
+                                # -a append user to group without remove current group
+
+usermod -d /new/home/user username # add dir home to user
+
+sudo userdel username      # Remove the user
+sudo userdel -r username   # Remove the user and their home directory
+
+groupadd groupname 
+
+groupdel groupname
+
+groupmod -n newgroupname oldgroupname
+
+groupmod -g 1003 groupname  # change GID
 
 df                        # show disk    
 
@@ -374,44 +408,13 @@ free -h         # human readable
 ```bash
 
 ```
-# chmod
-```bash
 
-```
-# chown
-```bash
-
-```
 # firewall
 ```bash
 
 ```
 
-# compress
-```bash
 
-```
-
-# vim
-```bash
-vim t1.txt 
-#  :command 
-#  :w       ## write
-#  :q       ## exit
-#  :qw      ## write, exit
-#  :q!      ## do nothing and exit
-#  :w!      ## override write 
-```
-
-# users & groups
-## users
-```bash
-
-```
-## groups
-```bash
-
-```
 # process
 
 ```bash
