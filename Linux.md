@@ -47,6 +47,13 @@ Configure [vim]() for python
 ```bash
 man ls              # With / go to mode search
 
+sudo shutdown now   # permission temporary
+
+su -                # switch to root user
+
+su - user           # switch to user
+
+
 who                 # show who is logged on
 
 whoami              # current user 
@@ -54,6 +61,12 @@ whoami              # current user
 which tar           # /usr/bin/tar
 
 whereis ping        # ping: /usr/bin/ping /usr/sbin/ping /usr/share/man/man8/ping.8.gz
+
+w                   # 03:01:17 up 1 min,  1 user,  load average: 0.36, 0.17, 0.06
+                    # USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+                    # root     pts/0     03:00    4.00s  0.04s  0.00s w
+
+last                # show a listing of last logged in users
 
 pwd                 # /home/raven/Desktop
 
@@ -143,11 +156,18 @@ uname -p
 
     #    -o, --operating-system
 
+hostname                # show hostname
+hostname -I             # ips use in linux
+
+
 echo  $0                # -bash
 echo  $PATH             # /root/.local/bin:/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 echo $SHELL             # /bin/bash
 p=1
 echo  $p                 # 1
+
+echo -e "Hello\nWolrd"   # Hello
+                         # Wolrd
 
 cat f.txt                # all line 
 
@@ -192,15 +212,23 @@ sha512sum file
 
 rm *                      # remove all file in dir
 
-mkdir f                   # create dir
-rmdir                     # remove  dir
+mkdir -v f                # create dir -v verbos
+mkdir -p /home/dir1/dir2
+
+rmdir dir                 # remove  dir
+rmdir -p dir/dir2
+
 
 cp source destination     # copy
 
 mv source destination     # can rename
 
 
-touch newfile 
+touch newfile new2file
+
+touch -m file            # update date in file
+
+
 
 file /etc/fstab          # /etc/fstab: ASCII text
 
@@ -211,12 +239,23 @@ find . -iname "[a-j]*"   # find files in .
 find /home/user -name "*.txt"          # Find all .txt files in /home/user
 
 find /home/user -type d               # Find all directories in /home/user
+find . -type f                        # find all file in .
+
+find -size 20M
+
+find /home/user -type d -u user
 
 find /home/user -mtime -7             # Find files modified in the last 7 days
 
 find /home/user -exec ls -l {} \;      # Execute 'ls -l' on each found file
 
-ln
+find . -type f -iname "*.txt" -exec grep 'March' {} \; # out March
+
+# Hard link
+ln f1 file.txt          # create hard link can rm original file link file exist 
+                        # when change file.txt will change f1
+ 
+ln -s file.txt f1       # soft link when remove original file soft link not work 
 
 export CAN="yes"
 
@@ -233,7 +272,12 @@ tar -cf test.tar t1.txt t2.txt # archive
 
 tar -czfv test.tar.gz t1.txt    # archive,compress
 
-tar -xf
+tar -cjvf f3.tar.bz2  file2      # compress bz2
+
+tar -cJvf.tar.xz file            # compress with xz
+         
+
+tar -xvf f2.tar.gz -C /home/student/  # out in dir
 
 gzip file
 gunzip file.gz
@@ -304,7 +348,8 @@ chmod 754 file.sh         # user group other
                           # user  =>   read(4) write(2) execute(1) 4+2+1= 7
                           # group =>   read(4) execute(1) 4+1= 5
                           # other =>   read(4) = 4 
-                          
+
+                         
 chmod -x file.sh
 chmod u=rw,o=r file.txt   # user= read, write / other=r
 
