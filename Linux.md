@@ -104,7 +104,6 @@ ls  #  -l - Long listing format
     #  -1 - List one file per line
     #  -d - List directories themselves, not their contents
 
-    # dr-xr-x---.   3 root root 4096 Nov 11 06:17 root
 
     # ‘-’ regular file
     # ‘b’ block special file
@@ -120,7 +119,10 @@ ls  #  -l - Long listing format
     # ‘s’ socket
     # ‘?’ some other file type
 
-    # owner-group-other link owner group file-size create-date file-name 
+
+    # d  r-x  r-x  ---.   3        root    root    4096 Nov 11 06:17 root
+    
+    # owner-group-other NumberOfLink owner group file-size create-date file-name 
     
 
 cd              # move to base path user -> /home/user
@@ -339,9 +341,18 @@ yum/dnf install vim
 
 curl 
 
+# r READ    w WRITE    e EXECUTE  s root user permission to another user to run this file
 
 chmod +x file.sh          # exec file
-chmod  u+x file.sh        # user can exec
+chmod  u+x file.sh        # user can exec like /bin/passwd
+
+chmod u+s filename               
+
+chmod u+t /dir          # The last special permission has been dubbed the "sticky bit."
+                        # This permission does not affect individual files. However, at the directory level,
+                        # it restricts file deletion. Only the owner (and root) of a file can remove the file within that directory.
+                        # A common example of this is the /tmp directory:
+                          
 
 chmod 754 file.sh         # user group other 
 
@@ -353,26 +364,66 @@ chmod 754 file.sh         # user group other
 chmod -x file.sh
 chmod u=rw,o=r file.txt   # user= read, write / other=r
 
+chmod u=rw,g=-,o-rwx      # user= read,write / group=remove premission / other= remove read write execute
+
+
 chown username:groupname file.txt # change file owner and group 
 chown 1001:1001 file.txt 
 
+chgrp groupname file             # change only group name
+
+umask                            # is the default permission values for files and directories.
+                                 # default for root is 0022 
+
+
 useradd username          # add user
+
+
+useradd -u 1003 -s /bin/bash -e 2026-01-01 -c "Admin User"  # -u user id 
+                                                            # -s what bash 
+                                                            # -e date expire 
+                                                            # -c Comment 
+
 
 usermod -aG groupname username  # add user to group 
                                 # -a append user to group without remove current group
 
 usermod -d /new/home/user username # add dir home to user
 
+                                   # -a append
+                                   # -G group
+                                   # -L lock
+                                   # -u unlock
+                                   # -c comment 
+chage -l root 
+                                    #Last password change                                    : Nov 10, 2025
+                                    #Password expires                                        : never
+                                    #Password inactive                                       : never
+                                    #Account expires                                         : never
+                                    #Minimum number of days between password change          : 0
+                                    #Maximum number of days between password change          : 99999
+                                    #Number of days of warning before password expires       : 7
+
+
+
 sudo userdel username      # Remove the user
 sudo userdel -r username   # Remove the user and their home directory
 
+chage -d 0 root            # first login must change password
+
 groupadd groupname 
+
+groupadd -g 1004 groupname
 
 groupdel groupname
 
 groupmod -n newgroupname oldgroupname
 
 groupmod -g 1003 groupname  # change GID
+
+chattr +a filename        # change attr file
+lsattr file               # show attr file
+
 
 df                        # show disk    
 
