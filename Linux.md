@@ -158,18 +158,21 @@ uname -p
 
     #    -o, --operating-system
 
-hostname                # show hostname
-hostname -I             # ips use in linux
+hostname                 # show hostname
+hostname -I              # ips use in linux
 
 
-echo  $0                # -bash
-echo  $PATH             # /root/.local/bin:/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
-echo $SHELL             # /bin/bash
+echo  $0                 # -bash
+echo  $PATH              # /root/.local/bin:/root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+echo $SHELL              # /bin/bash
 p=1
 echo  $p                 # 1
 
 echo -e "Hello\nWolrd"   # Hello
                          # Wolrd
+
+awk '{print $1}'         # out first column
+tail -n /etc/passwd  | awk '{print $1}' # first column number 
 
 cat f.txt                # all line 
 
@@ -366,7 +369,9 @@ chmod u=rw,o=r file.txt   # user= read, write / other=r
 
 chmod u=rw,g=-,o-rwx      # user= read,write / group=remove premission / other= remove read write execute
 
-
+getfacl file             # show access control file : owner , permission , .... . 
+setfacl file -d -m u:tom:rw files/ # set to files/ permissions 
+ 
 chown username:groupname file.txt # change file owner and group 
 chown 1001:1001 file.txt 
 
@@ -424,6 +429,12 @@ groupmod -g 1003 groupname  # change GID
 chattr +a filename        # change attr file
 lsattr file               # show attr file
 
+
+visudo                      # we can add user to run command root without or with password
+                            # Allow root to run any commands anywhere
+                            # root      ALL=(ALL)    ALL
+                            # tom       ALL=(ALL)    NOPASSWD: /sbin/fdisk
+                            # mary      ALL=(ALL)    NOPASS 
 
 df                        # show disk    
 
