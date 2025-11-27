@@ -90,6 +90,8 @@ history -c          # clear history
 
 !!                  # run last command
 
+!?ps?               # last command contain ps and run it
+
 ls                  # afs  bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run    sbin  srv  sys  tmp  usr  var
 
 ls -ltrh
@@ -182,8 +184,14 @@ cat /etc/shadow >> f.txt # append to f
 
 cat -n /etc/shadow       # with line number
 
-less f.txt               # show with pages, move arrow key
+cat file | xargs -I x echo see this : x    # get var from file and out in echo
+
 cat -n /etc/shadow | less 
+
+less f.txt               # show with pages, move arrow key
+
+ls | tee > ls.txt        # print ls and  write to ls.txt
+
 
 nl f.txt                  # show line with content
 
@@ -254,7 +262,7 @@ find /home/user -mtime -7             # Find files modified in the last 7 days
 
 find /home/user -exec ls -l {} \;      # Execute 'ls -l' on each found file
 
-find . -type f -iname "*.txt" -exec grep 'March' {} \; # out March
+find . -type f -iname "*.txt" -exec grep 'March' {} \;  # out March
 
 # Hard link
 ln f1 file.txt          # create hard link can rm original file link file exist 
@@ -367,7 +375,9 @@ chmod 754 file.sh         # user group other
                           # group =>   read(4) execute(1) 4+1= 5
                           # other =>   read(4) = 4 
 
-                         
+#                        --- 0     --x 1       -w- 2     r-- 4 
+#                        -wx 3     r-x 5       rw- 6     rwx 7
+
 chmod -x file.sh
 chmod u=rw,o=r file.txt   # user= read, write / other=r
 
@@ -378,7 +388,7 @@ setfacl file -d -m u:tom:rw files/ # set to files/ permissions
  
 chown username:groupname file.txt # change file owner and group 
 chown 1001:1001 file.txt 
-
+                                 
 chgrp groupname file             # change only group name
 
 umask                            # is the default permission values for files and directories.
@@ -528,18 +538,39 @@ free -V         # version
 free -h         # human readable
                 #  -t, --total 
 
+xclock &        # run in background
+
+bg              # see apps run in background with &
+
+jobs            # see jobs in bg or fg
+
+fg %1           # %1 point to first job in background to foreground
+
+nohub xclock    # run xclock and when finish shutdown
+
+nohub python backup.py > f.txt  2> error.txt  # run in background and standard input in f.txt Error to error.txt
+
+nice -n 19 apt install jcal       # nice means periority 
+                                  # if -20 is important
+                                  # if 19 is not important
+
+renice -n 15 PID                  # down or up nice to use source PC
+
+
+crontab -e                      # we can schedule command 
+# at 5 a.m every week run command
+# m(minute)   h(hours)   dom(Day of month)   mon(what month)   dow(Day of week)  command
+# *            5              *                  *                 1                 tar -zcf /var/backups/home.tgz /home/                                                                                        
+
+crontab -l                      # list of crontab user
+
+
 
 ```
+
 
 
 # firewall
-```bash
-
-```
-
-
-# process
-
 ```bash
 
 ```
