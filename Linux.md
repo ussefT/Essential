@@ -44,7 +44,20 @@ Diffrent shell Dash, Bash, [Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Install
 
 Configure [vim]() for python
 
+- curl
+> [post](https://www.warp.dev/terminus/curl-post-request)
+> [get](https://reqbin.com/req/c-1n4ljxb9/curl-get-request-example)
+> [getFile](https://www.digitalocean.com/community/tutorials/workflow-downloading-files-curl)
+
+- [wget](https://wiki.archlinux.org/title/Wget)
+ 
 ```bash
+# boot setting in 
+# cat /etc/default/grub
+# after change save changes
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
 man ls              # With / go to mode search
 
 sudo shutdown now   # permission temporary
@@ -319,6 +332,9 @@ shutdown +1 bye bye      # wall all user
 mesg n/y                 # disable/enable
 
 systemctl list-units
+# RedHat
+systemctl list-units --type service  # show list of service
+
 systemctl get-default    # multi-user.target
 
 systemctl set-default graphical.target
@@ -352,9 +368,12 @@ yum/dnf install vim
 #               groupinstall	Install a group, say "KDE Plasma Workspaces"
 #               history	Show history of the usage
 
+yum module list                # list of packages
+yum module info PackageName    # show info about package
 
+# Respository in Redhat
+# cd /etc/yum.repos.d
 
-curl 
 
 # r READ    w WRITE    e EXECUTE  s root user permission to another user to run this file
 
@@ -557,6 +576,7 @@ nice -n 19 apt install jcal       # nice means periority
 renice -n 15 PID                  # down or up nice to use source PC
 
 
+#  /etc/crontab 
 crontab -e                      # we can schedule command 
 # at 5 a.m every week run command
 # m(minute)   h(hours)   dom(Day of month)   mon(what month)   dow(Day of week)  command
@@ -564,16 +584,48 @@ crontab -e                      # we can schedule command
 
 crontab -l                      # list of crontab user
 
+# RedHat
+systemctl enable/disable/start/stop/restart firewalld
+
+firewall-cmd  --get-default-zone     # public
+firewall-cmd --list-all              # In safe list 
+firewall-cmd --realod                # realod
+
+firewall-cmd --permanent --add/--remove-service=ssh   # add ssh to safe zone
+firewall-cmd --permanent --add/--remove-port=22/tcp
 
 
 ```
 
-
-
-# firewall
+## systemd-tmpfiles
+We can remove file with one command
 ```bash
+systemctl start temfiles
+# man tempfiles.d
+cd /etc/tmpfiles.d/
+vim tmp.conf
+```
+```text
+d   /var/log/dir1   0777 root root
+d   /var/log/dir2   0777 root root 30s 
+
+f   /var/log/dir1/f1  0777 student student 
+
+r   /var/log/dir1/f1
 
 ```
+30s after run systemd.tmpfiles --clean remove files
+
+run for create files
+```bash
+systemd-tmpfiles --create
+```
+
+run for remove
+```bash
+systemd-tmpfiles --remove   # remove fiels start with  r
+```
+
 
 ## pmap
 ```bash
