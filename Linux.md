@@ -484,6 +484,9 @@ lsblk -f                  # sda
                           #   ├─rl_rocky9-swap swap        1              def2c0f4-42d1-4550-9800-0d7279b12422                  [SWAP]
                           #   └─rl_rocky9-home xfs                        31806d02-38c4-4bf7-b38f-89e626fd6fed    435.6G     1% /home
 
+lsblk --fs                # show file system 
+
+mkfs -t ext4/xfs /dev/sdb2   # format partition and change type of partition
 
 
 parted -l                 # Model: ATA VBOX HARDDISK (scsi)
@@ -508,13 +511,17 @@ fdisk -l
 
 fdisk /dev/sda            # command mode
 
+
+# mount file system in   /etc/fstab
+# file want mount(LABEL or UUID)        destination file mount     type      default    dump   fsck
+# /dev/sdb1                                 /mnt/                   ext4     default     0       0 
 mount                     # show all mounted file 
 mount /dev/sda /mnt       # mount /dev/sda to /mnt
 
 umount /dev/sda           # unmount /dev/sda 
 umount /mnt               # unmount /dev/sda 
 
-
+uuidgen /dev/sdb3         # create new UUID for this partition
 
 top                      # display Linux processes
 
@@ -551,7 +558,14 @@ pkill -9 pid    # kill pid
 kill 9 pid      # kill pid
 
 
-
+# cat /proc/swaps
+fdisk /dev/sdb4   # for add swap 
+#after that 
+mkswap -L SWAP /dev/sdb4  # add label
+# add to /etc/fstab
+# LABEL=SWAP    swap     swap     defaults
+swapon -s       # show swap partition
+swapoff -v /dev/sdb4   # remove partition
 
 free -V         # version 
 free -h         # human readable
@@ -594,7 +608,25 @@ firewall-cmd --realod                # realod
 firewall-cmd --permanent --add/--remove-service=ssh   # add ssh to safe zone
 firewall-cmd --permanent --add/--remove-port=22/tcp
 
+pvcreate /dev/sdc   # create physical volume
+pvdisplay /dev/sdc  # show pv
 
+vgcreate vg1 /dev/sdc                     # create volume group
+vgdisplay /dev/sdc                        # show vg 
+
+lvcreate -n name -L SIZE_G vg1            # create vl
+lvs                                       # see lv
+lvcreate -n lv_dept2 -l 100%FREE vg1   
+# after that 
+mkfs.ext4 /dev/vg1/lv_dept1
+# can add to /etc/fstab mount and use 
+#/dev/vg1/lv_dept1    /mnt/   default  0 0 
+
+lvreduce -L -600M -r /dev/vg1/lv_dept1         # volume logical reduce
+
+lvextend -l +100%FREE -r /dev/vg1/lv_dept2     # volume logical extend
+
+vgremove vg1     # remove volume group
 ```
 
 ## systemd-tmpfiles
