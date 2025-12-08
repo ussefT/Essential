@@ -29,17 +29,21 @@ Popular branch name:
 > Set alias for git
 - [commit]()
 > Commit files to git
+> Semantic commit [here](https://www.conventionalcommits.org/en/v1.0.0/) and [here](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
 - [log]()
 > See commit
 - [show]()
 > See details commit
+- [diff]()
+- [checkout]()
+- [clean]()
 - [remote]()
 - [push]()
 - [pull]()
 - [merge]()
 
 ## .gitgnore
-See this [generate]()
+See this [generate](https://www.toptal.com/developers/gitignore)
 
 ## add
 ```bash
@@ -64,27 +68,28 @@ git log --after="25-08-11"/--before="25-09-11"
 git log --author="usef"
 ```
 
-
+---
 ## show
 Show more details commit 
 ```bash
 git show 722b78
 ```
 
+---
 ## alias
 We can set alias for long command
 save in .git/config
 ```bash
 git config --local/--global alias.lgo "log --oneline --all --graph"
 ```
-
+---
 ## commit
 ```bash
 git commit -m "minimal detail"  # commit 
 
 git commit -am "detail"     # first (git add . ) after commit
 ```
-
+---
 ## branch
 - [Fast-foward]
 
@@ -111,9 +116,49 @@ git switch main
 git merge feature
 ```
 
+### None Fast forwarding
+Two branch **fix branch** - **main branch** after many commit on **fix branch** , before
+merge with **main** commit on **main** this is say **None fast forward**
 
+perhabs conflict like this:
+
+```text
+<<<<<<<HEAD (new change)
+...
+...
+...
+>>>>>>> fix branch
+```
+---
+## diff
+We can see diffrent between current file(working directory) with stage area 
 ```bash
+git diff
 
+git diff HEAD/head                  # (last commit) diffrent (working directory)
+
+git diff (idCommit1)..(idCommit2)
+
+git diff (idCommit1)..(idCommit2) file.txt
+
+git diff master..fixHot 
+
+```
+
+## checkout
+Move HEAD pointer 
+```bash
+git checkout HEAD~3  # third commit
+
+git checkout HEAD .  # remove all change to last commit
+
+git checkout HEAD file  # remove change this file to last commit
+```
+
+## clean
+Remove file in git 
+```bash
+git clean -help  # show help
 ```
 
 
@@ -121,22 +166,7 @@ git merge feature
 
 ```
 
-
-```bash
-
-```
-
-
-```bash
-
-```
-
-
-```bash
-
-```
-
-
+ 
 ```bash
 
 ```
