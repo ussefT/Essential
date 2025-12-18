@@ -53,6 +53,7 @@
 - [volume](https://github.com/ussefT/Essential/blob/main/Docker.md#volume)
 - [networking](https://github.com/ussefT/Essential/blob/main/Docker.md#networking)
 - [port-mapping](https://github.com/ussefT/Essential/blob/main/Docker.md#port-mapping)
+- [buidl](https://github.com/ussefT/Essential/blob/main/Docker.md#build)
 - [storage driver]()
 
 version:
@@ -1014,6 +1015,7 @@ for browser in web
 docker run -d -p 8080:8080 --restart always --name registery-web --link registery -e REGISTERY_URL=http://registery:5000/v2 -e REGISTERY_NAME=localhost:5000 hyper/docker-registery-web
 ```
 
+---
 ## Docker compose
 - [Docker Compose](https://docs.docker.com/compose/)
 - [command]()
@@ -1283,4 +1285,19 @@ mount a temporary file (in ram docker).Can be a single value or a list.
 tmpfs:
   -/run
   -/tmp
+```
+
+---
+## build 
+میتونیم یک داکار ایمیج بسازیم . با ایجاد یک Dockerfile 
+```bash
+sudo docker build myapp .
+```
+در docker-compose هم میتونیم 
+```bash
+sudo docker compose build 
+```
+اگر خطایی در build رخ داد میتونیم تمام مراحل ساخت را با دستور زیر دنبال کنیم
+```bash
+sudo docker compose build --progress=plain
 ```
