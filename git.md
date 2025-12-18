@@ -41,6 +41,8 @@ Popular branch name:
 - [push]()
 - [pull]()
 - [merge]()
+- [restart]()
+- [revert]()
 
 ## .gitgnore
 See this [generate](https://www.toptal.com/developers/gitignore)
@@ -162,13 +164,50 @@ git clean -help  # show help
 ```
 
 
+## restart
+Back change commit 
+
+### soft
+Back soft commit HEAD move to commit 
+```bash
+git reset --soft commitId
+```
+
+### hard
+Back hard commit change file directory
+```bash
+git reset --hard commitId
+```
+
+## mixed
+By default reset flag do soft and out file from stage go modified
+```bash
+git reset --mixed commitId
+```
+
+
+## revert
+Remove specific commit 
+```bash
+git revert commitId
+```
+
+
 ```bash
 
 ```
 
- 
+
 ```bash
 
 ```
 
 
+```bash
+
+```
+
+
+```bash
+
+```
