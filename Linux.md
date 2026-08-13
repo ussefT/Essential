@@ -658,40 +658,49 @@ run for remove
 systemd-tmpfiles --remove   # remove fiels start with  r
 ```
 
-
-## pmap
-```bash
-
-```
-## w
-```bash
-
-```
-## pstree
-```bash
-
-```
-
-# memory
-## free
-```bash
-
-```
-
-# I/O
-## iotop
+---
+### Process
 
 ```bash
+pmap -x 1234                 # show detailed memory usage of process PID 1234
+
+pmap 1234                    # show memory mappings of process PID 1234
+
+
+w                            # show logged-in users and what they are doing
+
+w -h                         # show users without the header
+
+
+pstree                       # show processes as a parent/child tree
+
+pstree -p                    # show process tree with PIDs
+
+
+free -h                      # show RAM and swap usage in human-readable format
+
+free -m                      # show RAM and swap usage in megabytes
+
+
+sudo iotop                   # show real-time disk I/O usage by processes
+
+sudo iotop -o                # show only processes currently doing I/O
+
+
+iostat                       # show CPU and disk I/O statistics
+
+iostat -xz 1                 # show extended I/O statistics and refresh every 1 second
+                             # -x                  extended statistics
+                             # -z                  hide devices with no activity
+                             # 1                   refresh every 1 second
+
+
+sudo lsof                    # list open files and resources used by processes
+
+sudo lsof -i                 # show network connections
+
+sudo lsof -i :22             # show processes using port 22
+
+sudo lsof /var/log/syslog    # show processes using /var/log/syslog
 
 ```
-
-## iostat
-```bash
-
-```
-
-## lsof
-```bash
-
-```
-
