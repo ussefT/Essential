@@ -53,7 +53,8 @@
 - [volume](https://github.com/ussefT/Essential/blob/main/Docker.md#volume)
 - [networking](https://github.com/ussefT/Essential/blob/main/Docker.md#networking)
 - [port-mapping](https://github.com/ussefT/Essential/blob/main/Docker.md#port-mapping)
-- [buidl](https://github.com/ussefT/Essential/blob/main/Docker.md#build)
+- [build](https://github.com/ussefT/Essential/blob/main/Docker.md#build)
+> - [example-dockerfile](https://github.com/ussefT/Essential/blob/main/Docker.md#example-dockerfile)
 - [storage driver]()
 
 version:
@@ -1291,8 +1292,107 @@ tmpfs:
 ## build 
 میتونیم یک داکار ایمیج بسازیم . با ایجاد یک Dockerfile 
 ```bash
-sudo docker build myapp .
+sudo docker build -t myapp .
 ```
+## example-dockerfile
+برای ایجاد یک ایمیج . باید فایل داکر فایل dockerfile ایجاد کنیم و مقادیر زیر را با توجه موارد مورد استفاده قرار دهیم. 
+
+
+Build the image:
+
+```bash
+docker build -t stream-storage .
+```
+
+Run it, mounting a host folder as the storage root:
+
+```bash
+docker run --rm -p 8000:8000 -v "$PWD/storage:/data" stream-storage
+```
+
+### Dockerfile
+
+```dockerfile
+FROM python:3.14-slim AS builder
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+WORKDIR /build
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+RUN python -m venv /opt/venv \
+    && /opt/venv/bin/pip install --upgrade pip \
+    && /opt/venv/bin/pip install -r requirements.txt
+
+FROM python:3.14-slim AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/opt/venv/bin:$PATH" \
+    APP_ROOT=/data
+
+RUN useradd --create-home --shell /usr/sbin/nologin appuser
+WORKDIR /app
+
+COPY --from=builder /opt/venv /opt/venv
+COPY --chown=appuser:appuser . .
+
+RUN mkdir -p /data && chown -R appuser:appuser /data
+
+USER appuser
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+### Detail dockerfile
+
+| # | Line | What it does |
+|---|---|---|
+| 1 | `FROM python:3.14-slim AS builder` | Starts the **builder** stage. Slim Debian base (~130 MB) with Python 3.14. No compiler included. Name `builder` is referenced later by `COPY --from=builder`. |
+| 2 | `ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \` | pip skips the "new version available" network check. |
+| 3 | `    PIP_NO_CACHE_DIR=1 \` | pip doesn't store wheels in `~/.cache/pip`. Saves ~10–50 MB. |
+| 4 | `    PYTHONDONTWRITEBYTECODE=1` | Python won't emit `__pycache__/*.pyc`. Keeps the image clean. |
+| 5 | `WORKDIR /build` | Sets the builder working directory. Docker creates it if missing. All relative paths resolve here. |
+| 6 | `RUN apt-get update \` | Refresh the Debian package index. Required before any install. |
+| 7 | `    && apt-get install -y --no-install-recommends build-essential \` | Install gcc / g++ / make / libc headers for compiling C extensions. `-y` auto-confirms; `--no-install-recommends` skips bloat. |
+| 8 | `    && rm -rf /var/lib/apt/lists/*` | Delete apt index cache (~30–80 MB). Chained with `&&` so it lives in the same layer as the install. |
+| 9 | `COPY requirements.txt .` | Copy only the requirements file into `/build`. Keeps the upcoming pip layer cached unless requirements change. |
+| 10 | `RUN python -m venv /opt/venv \` | Create an isolated virtualenv at `/opt/venv`. |
+| 11 | `    && /opt/venv/bin/pip install --upgrade pip \` | Upgrade pip inside the venv (absolute path — no `activate` step). |
+| 12 | `    && /opt/venv/bin/pip install -r requirements.txt` | Install all project dependencies into the venv. |
+| 13 | `FROM python:3.14-slim AS runtime` | Starts a **fresh runtime** stage. Compiler, apt cache, and `/build` from stage 1 are discarded — only what we explicitly copy survives. |
+| 14 | `ENV PYTHONDONTWRITEBYTECODE=1 \` | No `.pyc` files at runtime. |
+| 15 | `    PYTHONUNBUFFERED=1 \` | Flush stdout/stderr immediately — makes `docker logs` show output in real time. |
+| 16 | `    PATH="/opt/venv/bin:$PATH" \` | Put venv binaries first so `uvicorn` / `python` / `pip` resolve to the venv without activation. |
+| 17 | `    APP_ROOT=/data` | Read by `os.getenv("APP_ROOT")` in the app → sets `PATH_HOME = /data` (storage sandbox). |
+| 18 | `RUN useradd --create-home --shell /usr/sbin/nologin appuser` | Create a non-root user with a home dir and login shell disabled. Cost-free security. |
+| 19 | `WORKDIR /app` | Runtime working directory for the app code. |
+| 20 | `COPY --from=builder /opt/venv /opt/venv` | Copy only the virtualenv from stage 1. Nothing else from the builder survives. |
+| 21 | `COPY --chown=appuser:appuser . .` | Copy the project from the build context into `/app`, owned by `appuser`. Avoids a second `chown` layer. |
+| 22 | `RUN mkdir -p /data && chown -R appuser:appuser /data` | Create the storage root and give it to `appuser`. Your app writes here. |
+| 23 | `USER appuser` | Switch to the non-root user for the rest of the file, including `CMD`. |
+| 24 | `EXPOSE 8000` | Documents the port. Informational only — still requires `docker run -p 8000:8000`. |
+| 25 | `CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]` | Container entrypoint in exec (JSON) form. uvicorn becomes PID 1 and receives SIGTERM directly. `0.0.0.0` makes it reachable from outside the container. |
+
+---
+
+#### Quick grouping
+
+| Lines | Purpose |
+|---|---|
+| 1–12 | **Builder stage** — install dependencies |
+| 13–25 | **Runtime stage** — small, non-root, ready to run |
+
+
+
+
 در docker-compose هم میتونیم 
 ```bash
 sudo docker compose build 
